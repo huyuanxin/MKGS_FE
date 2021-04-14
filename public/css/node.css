@@ -1,0 +1,26 @@
+.node-com .el-icon-loading {
+  color: #909399 !important;
+}
+.node-com .el-icon-circle-check {
+  color: #67C23A !important;
+}
+.node-com .el-icon-circle-close {
+  color: #F56C6C !important;
+}
+.node-com .el-icon-warning-outline {
+  color: #E6A23C !important;
+}
+.node-com .type-icon {
+  display: inline-block;
+  transform: scale(1) translate(7px, -1.5px);
+}
+.node-com .node-des {
+  line-height: 1.5;
+  width: 170px;
+  word-break: break-all;
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  transform: translateY(100%);
+  text-align: center;
+}
