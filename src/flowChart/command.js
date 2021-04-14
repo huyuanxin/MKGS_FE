@@ -1,5 +1,7 @@
 
   import editor from 'flowChart/editor';
+  import model from 'flowChart/model';
+  import { loadData } from 'flowChart/index'
 
   const commandStack = {
     commandList: [],
@@ -76,7 +78,7 @@
 
     undo() {
       editor.removeEndpoint(this.id);
-      const model = require('./model')
+      // const model = require('./model')
       const nodeData = model.getNodeData(this.nodeId)
       nodeData.menuItems.splice(nodeData.menuItems.map(x => x.id).indexOf(this.id), 1)
     }
@@ -100,7 +102,7 @@
 
     undo() {
       // 数据模型增加下拉项
-      const model = require('./model')
+      // const model = require('./model')
       const nodeData = model.getNodeData(this.nodeId)
       nodeData.menuItems.push(this.menuItem)
       setTimeout(() => {
@@ -126,7 +128,7 @@
     }
 
     undo() {
-      const { loadData } = require('./index')
+      // const { loadData } = require('./index')
       loadData(this.flowChartJson)
     }
   }

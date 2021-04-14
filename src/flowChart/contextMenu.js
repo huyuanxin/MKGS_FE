@@ -2,6 +2,7 @@
   import { EventCenter } from 'flowChart/eventCenter';
   import command from 'flowChart/command';
   import editor from 'flowChart/editor';
+  import FlowChart from 'flowChart/index';
   
   class MenuItem {
     constructor(opt) {
@@ -76,7 +77,7 @@
       } else if (typeof comp === 'string') {
         command.exec(command.RemoveNodeCommand, comp);
       }
-      const FlowChart = require('./index');
+      // const FlowChart = require('./index');
       FlowChart.emit('delete');
     }
   }
@@ -224,7 +225,7 @@
       icon: 'el-icon-zoom-in',
       role: 'zoomOut',
       clickHandle: () => {
-        const FlowChart = require('./index');
+        // const FlowChart = require('./index');
         FlowChart.zoomOut();
       },
     });
@@ -233,24 +234,24 @@
       icon: 'el-icon-zoom-out',
       role: 'zoomIn',
       clickHandle: () => {
-        const FlowChart = require('./index');
+        // const FlowChart = require('./index');
         FlowChart.zoomIn();
       },
     });
   }
 
   function saveHandle() {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('save');
   }
 
   function undoHandle() {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('undo');
   }
 
   function cleanHandle() {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('cleanAll');
   }
   

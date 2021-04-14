@@ -43,7 +43,7 @@ import command from 'flowChart/command';
      * @description 移除下拉项的某个端点
      */
     function removeEndpoint(menuItem, nodeId) {
-      command.exec(RemoveEndpointCommand, menuItem, nodeId);
+      command.exec(command.RemoveEndpointCommand, menuItem, nodeId);
     };
 
     /**

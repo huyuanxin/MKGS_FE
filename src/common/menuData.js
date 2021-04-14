@@ -1,6 +1,5 @@
-define(function(require, exports, module) {
-  'use strict';
-  module.exports = [
+
+  export default [
     {
       label: '逻辑组件',
       id: 'logicCom',
@@ -62,4 +61,3 @@ define(function(require, exports, module) {
       ],
     },
   ]
-});

@@ -214,35 +214,35 @@
   overflow: hidden;
 }
 .flowChartWrap .icon-database {
-  background: url('../../src/assets/gooflow-icon.png') -97px -45px no-repeat;
+  background: url('~assets/gooflow-icon.png') -97px -45px no-repeat;
 }
 .flowChartWrap .icon-webservice {
-  background: url('../../src/assets/gooflow-icon.png') -137px -45px no-repeat;
+  background: url('~assets/gooflow-icon.png') -137px -45px no-repeat;
 }
 .flowChartWrap .icon-http {
-  background: url('../../src/assets/gooflow-icon.png') -137px -45px no-repeat;
+  background: url('~assets/gooflow-icon.png') -137px -45px no-repeat;
 }
 .flowChartWrap .icon-jms {
-  background: url('../../src/assets/gooflow-icon.png') -137px -45px no-repeat;
+  background: url('~assets/gooflow-icon.png') -137px -45px no-repeat;
 }
 .flowChartWrap .icon-java {
-  background: url('../../src/assets/gooflow-icon.png') -19px -44px no-repeat;
+  background: url('~assets/gooflow-icon.png') -19px -44px no-repeat;
 }
 .flowChartWrap .icon-groovy {
-  background: url('../../src/assets/gooflow-icon.png') -19px -44px no-repeat;
+  background: url('~assets/gooflow-icon.png') -19px -44px no-repeat;
 }
 .flowChartWrap .icon-iteration {
-  background: url('../../src/assets/gooflow-icon.png') -97px 1px no-repeat;
+  background: url('~assets/gooflow-icon.png') -97px 1px no-repeat;
 }
 .flowChartWrap .icon-condition {
-  background: url('../../src/assets/gooflow-icon.png') -58px -20px no-repeat;
+  background: url('~assets/gooflow-icon.png') -58px -20px no-repeat;
 }
 .flowChartWrap .icon-async {
-  background: url('../../src/assets/gooflow-icon.png') -117px -45px no-repeat;
+  background: url('~assets/gooflow-icon.png') -117px -45px no-repeat;
 }
 .flowChartWrap .icon-callback {
-  background: url('../../src/assets/gooflow-icon.png') -117px -45px no-repeat;
+  background: url('~assets/gooflow-icon.png') -117px -45px no-repeat;
 }
 .flowChartWrap .icon-atomService {
-  background: url('../../src/assets/brick-add.png') no-repeat;
+  background: url('~assets/brick-add.png') no-repeat;
 }

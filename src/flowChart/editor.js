@@ -1,6 +1,7 @@
 
   import Node from 'components/page/node.vue';
   import menuNode from'components/page/menuNode.vue';
+  import FlowChart from 'flowChart/index';
   console.log('menuNode',menuNode)
   import instance from'flowChart/instance';
   import model from'flowChart/model';
@@ -9,6 +10,9 @@
   import { isEndpoint, createUuid } from'flowChart/utils';
   import { CONNECTORSEPARATESYMBOL } from'flowChart/const';
   import { dataSetting, defaultNameMap, menuTypes } from 'flowChart/dataSetting.js'
+  import { exec, MoveNodeCommand ,AddConnectorCommand} from 'flowChart/command'
+  import contextMenu from 'flowChart/contextMenu'
+  import Vue from 'vue';
 
   let container = null;
 
@@ -16,7 +20,7 @@
    * @description 触发命令列表为空事件
    */
   function emitCommandListEmpty(val) {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('commandListEmpty', val);
   }
 
@@ -24,7 +28,7 @@
    * @description 恢复命令列表为空事件
    */
   function emitRecoverListEmpty(val) {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('recoverListEmpty', val);
   }
 
@@ -32,12 +36,12 @@
    * @description 触发增加命令事件
    */
   function emitAddCommand() {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('addCommand');
   }
 
   function emitShowNodeData(nodeId) {
-    const FlowChart = require('./index');
+    // const FlowChart = require('./index');
     FlowChart.emit('showNodeData', nodeId);
   }
 
@@ -144,7 +148,7 @@
    */
   function execMoveNodeCommand(nodeEl) {
     const { left, top } = nodeEl.style;
-    const { exec, MoveNodeCommand } = require('./command');
+    // const { exec, MoveNodeCommand } = require('./command');
     exec(MoveNodeCommand, nodeEl.id, {
       left: parseFloat(left),
       top: parseFloat(top),
@@ -230,7 +234,7 @@
     // 右键菜单
     newNode.oncontextmenu = (ev) => {
       ev.preventDefault();
-      const contextMenu = require('./contextMenu');
+      // const contextMenu = require('./contextMenu');
       contextMenu.show({
         left: ev.pageX,
         top: ev.pageY,
@@ -244,9 +248,9 @@
       ev.stopPropagation();
       removeClassNameSelected();
       newNode.classList.add('fy_node_selected');
-      const FlowChart = require('./index');
+      // const FlowChart = require('./index');
       FlowChart.emit('selectNode', id);
-      const contextMenu = require('./contextMenu');
+      // const contextMenu = require('./contextMenu');
       contextMenu.hide()
     };
     EventCenter.on('document.click', () => {
@@ -542,7 +546,7 @@
    * @param {array} uuids [sourceUuid,targetId]
    */
   function execAddConnectorCommand(uuids) {
-    const { exec, AddConnectorCommand } = require('./command')
+    // const { exec, AddConnectorCommand } = require('./command')
     exec(AddConnectorCommand, uuids);
     model.addEdge(uuids.join(CONNECTORSEPARATESYMBOL));
   }
@@ -593,7 +597,7 @@
       originalEvent.preventDefault();
       originalEvent.stopPropagation();
       if (isEndpoint(component)) return;
-      const contextMenu = require('./contextMenu');
+      // const contextMenu = require('./contextMenu');
       contextMenu.show({
         left: originalEvent.pageX,
         top: originalEvent.pageY,
@@ -601,7 +605,7 @@
     });
     instance.getContainer().parentElement.addEventListener('contextmenu', (ev) => {
       ev.preventDefault();
-      const contextMenu = require('./contextMenu');
+      // const contextMenu = require('./contextMenu');
       contextMenu.show({
         left: ev.pageX,
         top: ev.pageY,
@@ -619,7 +623,7 @@
     // 点击连线
     instance.bind('click', (conn, ev) => {
       if (ev) {
-        const FlowChart = require('./index');
+        // const FlowChart = require('./index');
         FlowChart.emit('selectEdge', conn);
       }
     });

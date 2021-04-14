@@ -91,14 +91,14 @@
     left: -1px;
     bottom: -9px;
   }
-  .fy_node .content i {
+  .fy_node .node_content i {
       position:relative;
       top:-10px;
       color: rgb(0, 205, 234);
       margin-left: 15px;
       margin-right: 15px;
   }
-  .fy_node .content span{
+  .fy_node .node_content span{
       display:inline-block;
       width:82px;
       min-height: 32px;

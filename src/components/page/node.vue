@@ -4,7 +4,7 @@
             <div class="node-des">{{des}}</div>
             <div class="main-c">
                 <span class="blue_line"></span>
-                <div class="content">
+                <div class="node_content">
                 <i :class="iconCLassName" class="type-icon"></i>
                 <span class="text">{{text}}</span>
                 <i v-if="state==='loading'" class="el-icon-loading node-state"></i>

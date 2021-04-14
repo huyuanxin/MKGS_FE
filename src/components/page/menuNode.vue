@@ -4,7 +4,7 @@
             <div class="node-des">{{des}}</div>
             <div class="menu-title">
             <span class="blue_line"></span>
-            <div class="content">
+            <div class="node_content">
                 <i :class="iconCLassName" class="type-icon"></i>
                 <span class="text">{{text}}</span>
                 <i v-if="state==='loading'" class="el-icon-loading node-state"></i>
@@ -59,7 +59,7 @@ export default {
             const id = createUuid()
             this.menuItems.push({ value: `${data.type === 'condition' ? 'condition' : 'process'}${this.menuItems.length + 1}`, id })
             this.$nextTick(() => {
-            const FlowChart = FlowChart;
+            // const FlowChart = FlowChart;
             console.log("FlowChart",FlowChart);
             this.menuItems.find(x => x.id === id).pointId = FlowChart.addEndpoint(id, window.currentNodeId)
             this.updateNodeData()
@@ -68,9 +68,9 @@ export default {
         },
         deleteItem(index) {
         setTimeout(() => {
-            const FlowChart = FlowChart;
+            // const FlowChart = FlowChart;
             FlowChart.removeEndpoint(this.menuItems[index], window.currentNodeId)
-            const instance = instance;
+            // const instance = instance;
             instance.remove(this.menuItems[index].id) // 这个不是真正的删除节点，而是解除这个id的操作记录（具体需要看源码），不然撤销删除下拉项后端点会定位出错
             this.menuItems.splice(index, 1)
             this.updateNodeData()

@@ -12,6 +12,7 @@ import { messages } from 'common/i18n';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
+import './assets/css/flowChart.css'
 //导入自定义指令文件
 import 'common/directives';
 //ie9和一些低版本的高级浏览器对es6新语法并不支持，导入此文件可以解决此问题
