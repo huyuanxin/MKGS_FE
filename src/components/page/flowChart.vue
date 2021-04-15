@@ -78,21 +78,21 @@
                       circle>
                       <i class="icon-save">
                         <svg
-                          t="1612497429237" 
-                          viewBox="0 0 1024 1024" 
-                          version="1.1" 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          p-id="8075" 
-                          width="14" 
+                          t="1612497429237"
+                          viewBox="0 0 1024 1024"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          p-id="8075"
+                          width="14"
                           height="14">
-                          <path 
-                            d="M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184z m456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840z" 
-                            p-id="8076" 
+                          <path
+                            d="M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184z m456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840z"
+                            p-id="8076"
                             :fill="saveBtnColor">
                           </path>
                           <path
-                            d="M512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144z m0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z" 
-                            p-id="8077" 
+                            d="M512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144z m0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z"
+                            p-id="8077"
                             :fill="saveBtnColor">
                           </path>
                         </svg>
@@ -126,20 +126,16 @@
                 <el-main>
                   <div>
                     <div v-show="toolBarShow==='component'">
-                      <projectSetting 
-                        v-show="showType === 'project'" 
-                        :flowChartJson="flowChartJson"
-                        @changeBreadList="changeBreadList"/>
-                      <nodeSetting 
-                        v-show="showType === 'node'" 
+                      <nodeSetting
+                        v-show="showType === 'node'"
                         :nodeDataErrors="nodeDataErrors"
                         :currentNodeData="currentNodeData"
                         :currentNodeId="currentNodeId"
                         @changeBreadList="changeBreadList"/>
-                      <edgeSetting 
-                        v-show="showType === 'edge'" 
-                        :edgesLabel="edgesLabel" 
-                        :currentEdgeId="currentEdgeId" 
+                      <edgeSetting
+                        v-show="showType === 'edge'"
+                        :edgesLabel="edgesLabel"
+                        :currentEdgeId="currentEdgeId"
                         @edgeLabelChange="edgeLabelChange"/>
                     </div>
                     <div v-show="toolBarShow==='message'">
@@ -151,7 +147,7 @@
                           <p>{{m.time}}</p>
                           <div>
                             <i class="el-icon-circle-close"
-                              style="color:red;font-size:26px;position:relative;top:5px;"></i>
+                              style="color:#ff0000;font-size:26px;position:relative;top:5px;"></i>
                             {{m.message}}
                           </div>
                         </el-card>
@@ -212,13 +208,11 @@
     import { getServiceInfo, serviceFlowSave, getServiceFlow } from 'api/index.js'
     import nodeSetting from 'components/common/nodeSetting.vue';
     import edgeSetting from 'components/common/edgeSetting.vue';
-    import projectSetting from 'components/common/projectSetting.vue';
 
-export default {  
+export default {
     components: {
         nodeSetting,
-        edgeSetting,
-        projectSetting
+        edgeSetting
     },
     data() {
         return {
@@ -227,7 +221,7 @@ export default {
         parameterPageTypes: ['processParameterIn', 'processParameterOut', 'serviceParameterIn', 'serviceParameterOut'],
         pageType: 'editor', // editor 编辑器 processParameterIn 过程入参 processParameterOut 过程出参 serviceParameterIn 服务入参 serviceParameterOut 服务出参 parameterMap 参数映射
         flowChartJson: model.getData(),
-        showType: 'project',
+        showType: 'node',
         currentNodeId: '',
         currentNodeData: undefined,
         edgesLabel: '',
@@ -269,10 +263,10 @@ export default {
         },
         pageType(val) {
         switch(val) {
-            case 'processParameterIn': this.paramsTableData = this.currentNodeData.dataSetting.paramsSetting.in || []; break 
-            case 'processParameterOut': this.paramsTableData = this.currentNodeData.dataSetting.paramsSetting.out || []; break 
-            case 'serviceParameterIn': this.paramsTableData = this.flowChartJson.serviceParamsSetting.in || []; break 
-            case 'serviceParameterOut': this.paramsTableData = this.flowChartJson.serviceParamsSetting.out || []; break 
+            case 'processParameterIn': this.paramsTableData = this.currentNodeData.dataSetting.paramsSetting.in || []; break
+            case 'processParameterOut': this.paramsTableData = this.currentNodeData.dataSetting.paramsSetting.out || []; break
+            case 'serviceParameterIn': this.paramsTableData = this.flowChartJson.serviceParamsSetting.in || []; break
+            case 'serviceParameterOut': this.paramsTableData = this.flowChartJson.serviceParamsSetting.out || []; break
             default: break
         }
         },
@@ -285,7 +279,7 @@ export default {
         idList.forEach(x => {
             const node = document.getElementById(x)
             node && (node.style.borderColor = 'red')
-        }) 
+        })
         },
     },
     async mounted() {
@@ -322,9 +316,6 @@ export default {
         });
         FlowChart.on('save', () => {
         this.save()
-        });
-        FlowChart.on('delete', () => {
-        this.showType = 'project'
         });
 
         this.nodeData = menuData;
@@ -386,7 +377,6 @@ export default {
         cleanAll() {
         command.exec(command.CleanAllCommand, this.flowChartJson)
         this.flowChartJson = model.getData()
-        this.showType = 'project'
         },
         edgeLabelChange(val) {
         this.currentConn.setLabel({ label: val })
@@ -439,9 +429,9 @@ export default {
                 const edges = json.edges.filter(z => z.includes(y.pointId))
                 edges.length && edges.forEach(k => {
                 x.data.dataSetting.callSetting.script.push(
-                    { 
-                    [x.data.type === 'condition' ? 'expression' : 'itemName'] : y.value, 
-                    process: targetNodeMap[k.split('&&')[1]] 
+                    {
+                    [x.data.type === 'condition' ? 'expression' : 'itemName'] : y.value,
+                    process: targetNodeMap[k.split('&&')[1]]
                     }
                 )
                 })
@@ -518,7 +508,7 @@ export default {
                 // disabled: !!data.children,
                 disabled: true
             },
-            }, 
+            },
             [
             h('span', {
                 attrs: {
@@ -575,7 +565,6 @@ export default {
         FlowChart.addNode({ pageX: ev.pageX, pageY: ev.pageY }, ev.dataTransfer.getData('target'));
         },
         clickBgHandle() {
-        this.showType = 'project';
         this.flowChartJson = model.getData()
         },
         zoomOut() {
@@ -587,11 +576,11 @@ export default {
         undo() {
         if (this.isUndoDisable) return
         FlowChart.undo();
-        this.showType = 'project'
+        this.showType = 'node'
         },
         recover() {
         FlowChart.recover();
-        this.showType = 'project'
+        this.showType = 'node'
         },
         execModel() {
         this.isExecDisable = true;
@@ -603,5 +592,5 @@ export default {
 };
 </script>
 <style scoped>
-    
+
 </style>
