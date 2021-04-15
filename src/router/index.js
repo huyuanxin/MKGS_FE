@@ -49,35 +49,6 @@ export default new Router({
                     meta: {title: '智能导诊'},
                 },
                 {
-                    path: '/recharge',
-                    component: () => import('components/page/recharge.vue'),
-                    meta: {title: '充值管理'}
-                }, {
-                    path: '/consume',
-                    component: () => import('components/page/consume.vue'),
-                    meta: {title: '消费管理'}
-                }, {
-                    path: '/record',
-                    component: () => import('components/page/record.vue'),
-                    meta: {title: '交易记录'}
-                },
-                {
-                    path: '/integral',
-                    component: () => import('components/page/integral.vue'),
-                    meta: {title: '积分列表'}
-                },
-                {
-                    path: '/care',
-                    component: () => import('components/page/care.vue'),
-                    meta: {title: '会员关怀'},
-                },
-                {
-                    // vue-schart组件
-                    path: '/charts',
-                    component: () => import('components/page/Statistic.vue'),
-                    meta: {title: '统计数据'}
-                },
-                {
                     path: '/404',
                     component: () => import('components/page/404.vue'),
                     meta: {title: '404'}

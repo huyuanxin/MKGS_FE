@@ -80,12 +80,6 @@ export default {
                     icon: 'el-icon-lx-people',
                     index: 'aivisits',
                     title: 'AI问诊',
-                    // subs: [
-                    //     {
-                    //         index: 'aivisits',
-                    //         title: '会员列表'
-                    //     }
-                    //     ]
                 },
                 {
                     icon: 'el-icon-lx-copy',

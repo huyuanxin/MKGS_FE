@@ -7,7 +7,7 @@
                     {{item.title}}
                 </router-link>
                 <!--关闭按钮，点击后触发关闭标签函数-->
-                <span class="tags-li-icon" @click="closeTags(index)">
+                <span v-if="index !== 0" class="tags-li-icon" @click="closeTags(index)">
                     <i class="el-icon-close"></i>
                 </span>
             </li>
