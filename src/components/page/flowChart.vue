@@ -13,13 +13,13 @@
           </el-input>
         </div>
         <el-tree :data="nodeData"
-                node-key="id"
-                :default-expanded-keys="['logicCom','functionCom', 'serviceCom']"
-                icon-class="el-icon-arrow-right"
-                :render-content="renderContentFunction"
-                :filter-node-method="filterNode"
-                ref="tree2"
-                :props="defaultProps"></el-tree>
+                 node-key="id"
+                 :default-expanded-keys="['logicCom']"
+                 icon-class="el-icon-arrow-right"
+                 :render-content="renderContentFunction"
+                 :filter-node-method="filterNode"
+                 ref="tree2"
+                 :props="defaultProps"></el-tree>
       </el-aside>
       <el-main>
         <el-container class="content-el-container">
@@ -392,8 +392,10 @@ export default {
         this.currentConn.setLabel({ label: val })
         },
         async save() {
+            console.log('save函数执行了')
         let msg
         const json = model.getData()
+            console.log('model.getData()', model.getData())
         // 节点id-target端点id映射
         const nodeTargetMap = {}
         // target端点id-节点id映射
@@ -402,6 +404,8 @@ export default {
         const sourceNodeMap = {}
         // 逻辑组件下拉项的source端点-节点id映射
         const logicSourceNodeMap = {}
+
+            //统一id
         json.nodes.forEach(x => {
             nodeTargetMap[x.id] = x.points.targets[0]
             targetNodeMap[x.points.targets[0]] = x.id
