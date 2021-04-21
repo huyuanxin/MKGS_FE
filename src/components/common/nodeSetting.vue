@@ -555,15 +555,21 @@
       //     this.$message.error(error.message)
       //   }
       // },
-      changeNodeData(val, key) {
-        if (key === 'processName') {
-          const nodeEl = document.getElementById(currentNodeId)
-          nodeEl && (nodeEl.vNode.$children[0].text = val)
-        } else if (key === 'des') {
-          const nodeEl = document.getElementById(currentNodeId)
-          nodeEl && (nodeEl.vNode.$children[0].des = val)
-        }
-      },
+
+        /**
+         * 当在右侧的输入框输入【过程名称】或者【过程描述】后，节点（div）显示的名字也要同时改变。
+         * @param val
+         * @param key
+         */
+        changeNodeData(val, key) {
+            if (key === 'processName') {
+                const nodeEl = document.getElementById(currentNodeId)
+                nodeEl && (nodeEl.vNode.$children[0].text = val)
+            } else if (key === 'des') {
+                const nodeEl = document.getElementById(currentNodeId)
+                nodeEl && (nodeEl.vNode.$children[0].des = val)
+            }
+        },
       changeBreadList(bread) {
         let msg
 

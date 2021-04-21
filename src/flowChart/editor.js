@@ -10,7 +10,8 @@
   import { isEndpoint, createUuid } from'flowChart/utils';
   import { CONNECTORSEPARATESYMBOL } from'flowChart/const';
   import { dataSetting, defaultNameMap, menuTypes } from 'flowChart/dataSetting.js'
-  import { exec, MoveNodeCommand ,AddConnectorCommand} from 'flowChart/command'
+  // import { exec, MoveNodeCommand ,AddConnectorCommand} from 'flowChart/command'
+  import command from 'flowChart/command'
   import contextMenu from 'flowChart/contextMenu'
   import Vue from 'vue';
 
@@ -68,7 +69,8 @@
         anchor: [space * (j + 1), 0, 0, -1],
         anchor: (() => {
           switch(type) {
-            case 'menuTitle': return [0, 0, 0, -1]
+            case 'menuTitle':
+              return [0, 0, 0, -1]
             // default: return [space * (j + 1), 0, 0, -1]
             default: return [0, 0.5, 0, -1]
           }
@@ -122,7 +124,7 @@
       //   tip.hide();
       // });
     }
-    return endpointsData.map(x => x.id)
+    return endpointsData.map(x => x.id)//map()方法定义在JavaScript的Array中，它返回一个由每个端点的id值组成的数组。
   }
 
   /**
@@ -149,7 +151,7 @@
   function execMoveNodeCommand(nodeEl) {
     const { left, top } = nodeEl.style;
     // const { exec, MoveNodeCommand } = require('./command');
-    exec(MoveNodeCommand, nodeEl.id, {
+    command.exec(command.MoveNodeCommand, nodeEl.id, {
       left: parseFloat(left),
       top: parseFloat(top),
     });
@@ -547,7 +549,7 @@
    */
   function execAddConnectorCommand(uuids) {
     // const { exec, AddConnectorCommand } = require('./command')
-    exec(AddConnectorCommand, uuids);
+    command.exec(command.AddConnectorCommand, uuids);
     model.addEdge(uuids.join(CONNECTORSEPARATESYMBOL));
   }
 

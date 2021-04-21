@@ -60,7 +60,6 @@ export default {
             this.menuItems.push({ value: `${data.type === 'condition' ? 'condition' : 'process'}${this.menuItems.length + 1}`, id })
             this.$nextTick(() => {
             // const FlowChart = FlowChart;
-            console.log("FlowChart",FlowChart);
             this.menuItems.find(x => x.id === id).pointId = FlowChart.addEndpoint(id, window.currentNodeId)
             this.updateNodeData()
             })
