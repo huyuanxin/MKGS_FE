@@ -273,7 +273,6 @@
       props.nodeMenuItems = menuItems
     } else {
       temNode = Node
-      console.log('temNode',temNode)
     }
     // 插入容器
     const component = new Vue({
