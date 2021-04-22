@@ -1,11 +1,11 @@
 <template>
     <div class="header">
-        折叠按钮
+<!--        折叠按钮-->
         <div class="collapse-btn" @click="collapseChage">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">ZRK电影院会员管理系统</div>
+        <div class="logo">患者辅助决策后台管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->

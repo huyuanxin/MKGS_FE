@@ -8,7 +8,7 @@
       <div class="box">
         <div class="filter-container" />
 <!--        <el-card class="box-card" style="height: auto;background: #D4F2E7">-->
-        <el-card class="box-card" style="height: auto;background-image: url('https://chyshop.oss-cn-guangzhou.aliyuncs.com/null/background.jpeg') ">
+        <el-card class="box-card" style="height: auto; ">
           <!--          <div>-->
           <!--            <el-button-->
           <!--              type="primary"-->
@@ -92,11 +92,11 @@ export default {
         // callback: this.headerEvent,
       },
       rightConfig: {
-        listTip: '注意事项~~~',
-        notice: '【公告】这是一款高度自由的聊天组件，基于AVue、Vue、Element-ui开发。点个赞再走吧 ',
+        listTip: '',
+        notice: '',
         list: [
           {
-            name: '1、多喝热水',
+            name: '',
             // "img": "../image/three.jpeg"
           }
         ]
@@ -186,5 +186,12 @@ button.el-button.el-button--primary {
 div.iconSize {
   font-size: 15px;
   line-height: 30px;
+}
+::v-deep .wrapper {
+  height: 352px;
+}
+
+::v-deep .rightBox {
+  overflow: hidden;
 }
 </style>
