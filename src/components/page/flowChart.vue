@@ -3,7 +3,7 @@
     <el-container class="flowChartWrap">
       <el-aside width="240px"
                 class="left">
-        <div class="main-title">服务编排</div>
+        <div class="main-title">录入数据</div>
         <div class="search">
           <el-input placeholder="搜索"
                     size="small"
@@ -386,6 +386,7 @@ export default {
         let msg
         const json = model.getData()
             console.log('model.getData()', model.getData())
+            console.log()
         // 节点id-target端点id映射
         const nodeTargetMap = {}
         // target端点id-节点id映射
@@ -402,6 +403,8 @@ export default {
             sourceNodeMap[x.points.sources[0]] = x.id
             x.data.menuItems && x.data.menuItems.forEach(y => {
             logicSourceNodeMap[y.pointId] = x.id
+
+
             })
         })
 
@@ -481,9 +484,42 @@ export default {
             this.$message.warning(msg)
             return
         }
-        console.log(json)
+
         try {
-            await serviceFlowSave(json)
+            console.log("FlowChartJson",json)
+            function filter(obj) {
+              let filter_json = {}
+              filter_json.edges = obj.edges
+              filter_json.edgesLabel = obj.edgesLabel
+              filter_json.entities = createEntity(obj)
+              return filter_json
+            }
+            function createEntity(obj) {
+              let filter_entities = []
+              for(let i = 0; i < obj.nodes.length; i++) {
+                let entity = {}
+                entity.id = obj.nodes[i].id
+                entity.entityName = obj.nodes[i].data.dataSetting.processSetting.processName
+                entity.className = obj.nodes[i].data.dataSetting.processSetting.className
+                entity.point = {}
+                entity.point.targets = [...obj.nodes[i].points.targets]
+                entity.point.sources = [...obj.nodes[i].points.sources]
+
+                const menuItems = obj.nodes[i].data.menuItems;
+                if(menuItems.length > 0) {
+                  for (let j = 0; j < menuItems.length; j++) {
+                    entity.point.sources.push(menuItems[j].pointId);
+                  }
+                }
+                filter_entities.push(entity)
+              }
+              return filter_entities
+            }
+            // 接口
+            let filter_json = filter(json)
+            console.log("EntityJson",filter_json)
+
+            await serviceFlowSave(filter_json)//把最终的json传给后台
             this.$message.success('保存成功')
         } catch (error) {
             this.$message.error(error.message)
