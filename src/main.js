@@ -8,7 +8,7 @@ import ElementUI from 'element-ui';
 //导入国际化组件
 import VueI18n from 'vue-i18n';
 //这是典型的导入文件的非默认函数
-import { messages } from 'common/i18n';
+import {messages} from 'common/i18n';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
@@ -21,7 +21,6 @@ import 'babel-polyfill';
 import moment from "moment";
 // 引入JwChat
 import Chat from "jwchat";
-Vue.use(Chat)
 //引入Jquery
 // import jQuery from 'common/jquery.js';
 // Vue.use(jQuery)
@@ -30,8 +29,9 @@ import 'jquery-ui-dist/jquery-ui.css'
 //引入Jquery-ui
 // import jQueryUI from 'http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js';
 // Vue.use(jQueryUI)
-
 import {parseTime} from 'utils/prototype';
+
+Vue.use(Chat)
 Vue.prototype.$parseTime = parseTime;
 
 Vue.prototype.$moment = moment;

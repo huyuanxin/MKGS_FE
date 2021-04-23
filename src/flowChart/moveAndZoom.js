@@ -1,5 +1,5 @@
-
 import instance from 'flowChart/instance'
+
 // 初始化panzoom插件
 function init() {
   const mainContainer = instance.getContainer();

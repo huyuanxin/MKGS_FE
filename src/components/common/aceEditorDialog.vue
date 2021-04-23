@@ -73,9 +73,9 @@
     </div>
 </template>
 <script>
-    import vueAceEditor from 'common/vueAceEditor';
+import vueAceEditor from 'common/vueAceEditor';
 
-    export default {
+export default {
         data() {
             return {
                 editorHeight: '200px',

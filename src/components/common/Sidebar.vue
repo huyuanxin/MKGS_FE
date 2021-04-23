@@ -66,6 +66,7 @@
 
 <script>
 import bus from 'common/bus';
+
 export default {
     data() {
         return {

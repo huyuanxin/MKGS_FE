@@ -188,18 +188,10 @@
     </div>
 </template>
 <script>
-    import {dataSetting} from 'flowChart/dataSetting';
-    import {createUuid }from 'flowChart/utils';
-    import { 
-    getDatasourceList, 
-    getWsclientList, 
-    getMqseverList,
-      // getAtomServiceList,
-    getServiceParamsIn,
-    getServiceParamsOut,
-  } from 'api/index';
-    import aceEditorDialog from 'components/common/aceEditorDialog.vue'
-    export default {
+import {dataSetting} from 'flowChart/dataSetting';
+import aceEditorDialog from 'components/common/aceEditorDialog.vue'
+
+export default {
     components: {
       aceEditorDialog
     },

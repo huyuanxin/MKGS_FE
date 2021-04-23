@@ -66,8 +66,9 @@
 
 <script>
 
-import { mapGetters } from 'vuex'
-import { getAnswer } from '@/api/answer'
+import {mapGetters} from 'vuex'
+import {getAnswer} from '@/api/answer'
+
 var moment = require('moment')
 
 export default {

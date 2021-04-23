@@ -31,8 +31,9 @@
 </template>
 
 <script>
-    import bus from 'common/bus';
-    export default {
+import bus from 'common/bus';
+
+export default {
         data() {
             return {
                 tagsList: []

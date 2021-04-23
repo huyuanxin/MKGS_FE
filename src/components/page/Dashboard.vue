@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    import FlowChart from 'components/page/flowChart.vue';
+import FlowChart from 'components/page/flowChart.vue';
 
-    export default {
+export default {
        components: {
            FlowChart
        }

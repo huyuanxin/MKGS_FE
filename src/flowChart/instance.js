@@ -1,4 +1,3 @@
-
 import config from 'flowChart/config'
 
 const instance = jsPlumb.getInstance(config);

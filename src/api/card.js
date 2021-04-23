@@ -1,6 +1,6 @@
 import request from '../utils/request'
 
-    export default {
+export default {
         //获取会员卡数据，请求参数pageIndex、pageSize
         getCardData(query){
             return request({

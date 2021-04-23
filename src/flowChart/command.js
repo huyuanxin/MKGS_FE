@@ -1,9 +1,8 @@
+import editor from 'flowChart/editor';
+import model from 'flowChart/model';
+import {loadData} from 'flowChart/index'
 
-  import editor from 'flowChart/editor';
-  import model from 'flowChart/model';
-  import { loadData } from 'flowChart/index'
-
-  const commandStack = {
+const commandStack = {
     commandList: [],
     recoverList: [],
     recover() {

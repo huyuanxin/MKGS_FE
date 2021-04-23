@@ -28,8 +28,9 @@
 </template>
 
 <script>
-    import {managerLogin} from "../../api";
-    export default {
+import {managerLogin} from "../../api";
+
+export default {
     data: function() {
         return {
             param: {

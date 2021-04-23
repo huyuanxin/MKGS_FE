@@ -33,9 +33,9 @@
     </div>
 </template>
 <script>
-    import bus from 'common/bus';
+import bus from 'common/bus';
 
-    export default {
+export default {
         data() {
             return {
                 collapse: false,

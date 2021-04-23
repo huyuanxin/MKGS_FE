@@ -1,10 +1,8 @@
+import {EventCenter} from 'flowChart/eventCenter';
+import command from 'flowChart/command';
+import FlowChart from 'flowChart/index';
 
-  import { EventCenter } from 'flowChart/eventCenter';
-  import command from 'flowChart/command';
-  import editor from 'flowChart/editor';
-  import FlowChart from 'flowChart/index';
-  
-  class MenuItem {
+class MenuItem {
     constructor(opt) {
       this.text = opt.text;
       this.icon = opt.icon;

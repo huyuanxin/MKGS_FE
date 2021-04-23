@@ -1,18 +1,19 @@
 import editorCss from 'flowChart/editorCss';
-console.log('editorCss',editorCss)
 import instance from 'flowChart/instance'
-import { extendsEvent, EventCenter } from 'flowChart/eventCenter'
+import {EventCenter, extendsEvent} from 'flowChart/eventCenter'
 import panZoom from 'flowChart/moveAndZoom';
 
 import contentMenu from 'flowChart/contextMenu';
 import editor from 'flowChart/editor';
-console.log('>>>>>>>>>>editor',editor)
-console.log('>>>>>>>>>>editor.addNodeByDrag',editor.addNodeByDrag)
 import model from 'flowChart/model';
 import command from 'flowChart/command';
 
+console.log('editorCss',editorCss)
+console.log('>>>>>>>>>>editor',editor)
+console.log('>>>>>>>>>>editor.addNodeByDrag',editor.addNodeByDrag)
 
-    /**
+
+/**
      * @description 设置插件容器
      * @param {string} id 容器id
      */

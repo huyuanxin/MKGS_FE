@@ -1,5 +1,4 @@
-
-import { CONNECTORSEPARATESYMBOL } from 'flowChart/const'
+import {CONNECTORSEPARATESYMBOL} from 'flowChart/const'
 
 /**
    * @description 增加css规则

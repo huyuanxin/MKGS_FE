@@ -1,7 +1,6 @@
+import {addCssRules} from 'flowChart/utils';
 
-  import { addCssRules } from 'flowChart/utils';
-
-  const cssRules=`
+const cssRules=`
   #mainContainer .tooltip{
       
   }
