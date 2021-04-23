@@ -506,7 +506,7 @@ export default {
           let filter_json = {}
           //filter_json.edges = obj.edges
           //filter_json.edgesLabel = obj.edgesLabel
-          let map=[]
+          let map= {}
           for (const key in obj.edgesLabel) {
             if (obj.edgesLabel.hasOwnProperty(key)) {
               const value = obj.edgesLabel[key]

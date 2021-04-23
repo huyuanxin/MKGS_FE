@@ -13,23 +13,38 @@
               <i class="required-icon" v-if="value.required">*</i>
             </span>
             <span class="input-relative">
-              <el-input 
-                :class="{'input-error': curErrors.includes('processSetting.' + key)}" 
-                :type="value.type" 
-                size="small" 
-                v-model="currentNodeData.dataSetting.processSetting[key]" 
+              <el-input
+                :class="{'input-error': curErrors.includes('processSetting.' + key)}"
+                :type="value.type"
+                size="small"
+                v-model="currentNodeData.dataSetting.processSetting[key]"
                 @input="val => changeNodeData(val, key)"
                 @focus="inputFocus('processSetting.' + key)">
               </el-input>
-              <span 
-                v-if="curErrors.includes('processSetting.' + key)" 
-                class="error-text" 
+              <span
+                v-if="curErrors.includes('processSetting.' + key)"
+                class="error-text"
                 :style="{'bottom': value.type === 'text' ? '-23px' : '-17px'}">
                 {{ curErrorMsg['processSetting.' + key] || '必填' }}
               </span>
             </span>
           </template>
         </p>
+        <p>
+          <template>
+          <span class="input-label">
+            实体类别
+          </span>
+            <span class="input-relative">
+            <select v-model="currentNodeData.dataSetting.processSetting['className']">
+            <option>disease</option>
+            <option>symptom</option>
+            <option>complication</option>
+          </select>
+          </span>
+          </template>
+        </p>
+
         <p class="call-attr" v-if="Object.keys(dataSetting[currentNodeData.type].callSetting || {}).length && currentNodeData.type !== 'condition'">调用属性配置</p>
         <p v-for="(value, key) in dataSetting[currentNodeData.type].callSetting" :key="key" v-show="value.type !== 'none'">
           <template v-if="value.type !== 'none'">
@@ -54,10 +69,10 @@
               </span>
             </span>
             <span class="value" v-else-if="value.type.includes('ace')">
-              <el-button 
-                @click.stop="showDialog2(value, key)" 
+              <el-button
+                @click.stop="showDialog2(value, key)"
                 :style="{'border-color': curErrors.includes('callSetting.' + key) ? 'red' : ''}"
-                size="mini" 
+                size="mini"
                 type="default">
                 <template v-if="currentNodeData.dataSetting.callSetting[key]">
                   <i class="el-icon-success"></i>已配置
@@ -68,16 +83,16 @@
               </el-button>
             </span>
             <span class="input-relative" v-else>
-              <el-input 
-                :class="{'input-error': curErrors.includes('callSetting.' + key)}" 
-                :type="value.type" 
-                size="small" 
+              <el-input
+                :class="{'input-error': curErrors.includes('callSetting.' + key)}"
+                :type="value.type"
+                size="small"
                 v-model="currentNodeData.dataSetting.callSetting[key]"
                 @focus="inputFocus('callSetting.' + key)">
               </el-input>
-              <span 
-                v-if="curErrors.includes('callSetting.' + key)" 
-                class="error-text" 
+              <span
+                v-if="curErrors.includes('callSetting.' + key)"
+                class="error-text"
                 :style="{'bottom': value.type === 'text' ? '-23px' : '-17px'}">
                 {{ curErrorMsg['callSetting.' + key] || '必填' }}
               </span>
@@ -85,15 +100,15 @@
           </template>
         </p>
         <p class="text-center" v-if="currentNodeData.type !== 'async' && currentNodeData.type !== 'callback'">
-          <el-button 
-            size="small" 
-            type="primary" 
+          <el-button
+            size="small"
+            type="primary"
             @click="changeBreadList([{ label: currentNodeData.dataSetting.processSetting.processName + '过程入参', pageType: 'processParameterIn' }])">
             过程入参
           </el-button>
-          <el-button 
-            size="small" 
-            type="primary" 
+          <el-button
+            size="small"
+            type="primary"
             @click="changeBreadList([{ label: currentNodeData.dataSetting.processSetting.processName + '过程出参', pageType: 'processParameterOut' }])">
             过程出参
           </el-button>
@@ -102,6 +117,7 @@
           <span class="input-label">{{currentNodeData.type === 'condition' ? '条件' : '过程'}}{{index+1}}</span>
           <el-input size="small" v-model="item.value"></el-input>
         </p>
+
       </div>
       <!--<el-dialog-->
       <!--v-if="currentNodeData.type === 'atomService'"-->
@@ -188,10 +204,18 @@
     </div>
 </template>
 <script>
-import {dataSetting} from 'flowChart/dataSetting';
-import aceEditorDialog from 'components/common/aceEditorDialog.vue'
-
-export default {
+    import {dataSetting} from 'flowChart/dataSetting';
+    import {createUuid }from 'flowChart/utils';
+    import {
+    getDatasourceList,
+    getWsclientList,
+    getMqseverList,
+      // getAtomServiceList,
+    getServiceParamsIn,
+    getServiceParamsOut,
+  } from 'api/index';
+    import aceEditorDialog from 'components/common/aceEditorDialog.vue'
+    export default {
     components: {
       aceEditorDialog
     },
@@ -590,7 +614,7 @@ export default {
             }
           }
         }
-       
+
         if (msg) {
           this.$message.warning(msg)
           return
@@ -598,9 +622,9 @@ export default {
         this.$emit('changeBreadList', bread)
       }
     }
-   
+
     };
 </script>
 <style scoped>
-    
+
 </style>
