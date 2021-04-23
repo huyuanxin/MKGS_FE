@@ -504,16 +504,12 @@ export default {
 
         function filter(obj) {
           let filter_json = {}
-          //filter_json.edges = obj.edges
-          //filter_json.edgesLabel = obj.edgesLabel
           let map= {}
           for (const key in obj.edgesLabel) {
             if (obj.edgesLabel.hasOwnProperty(key)) {
               const value = obj.edgesLabel[key]
-              const keyTemp=key
-              const keySplit = keyTemp.split("&&")
-              const sourceNode = keySplit[0].split("-source")[0]
-              const targetNode = keySplit[1].split("-target")[0]
+              const sourceNode = key.split("&&")[0].split("-source")[0]
+              const targetNode = key.split("&&")[1].split("-target")[0]
               const newKey = model.getNodeData(sourceNode).dataSetting.processSetting.processName + "&&" + model.getNodeData(targetNode).dataSetting.processSetting.processName
               map[newKey+"-ignore"+createUuid()]=value
             }
