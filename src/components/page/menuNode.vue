@@ -30,9 +30,7 @@ import model from 'flowChart/model';
 import FlowChart from 'flowChart/index'
 import instance from 'flowChart/instance'
 
-console.log(">>>>>>>model", model);
-console.log(">>>>>>>FlowChart", FlowChart);
-console.log(">>>>>>>instance", instance);
+
 
 export default {
   components: {},
@@ -58,7 +56,8 @@ export default {
         const id = window.currentNodeId + "-source" + createUuid()
         //const id = data.dataSetting.processSetting.processName + "-source" + createUuid()
         this.menuItems.push({
-          value: `${data.type === 'condition' ? 'condition' : 'process'}${this.menuItems.length + 1}`, id
+          value: `${data.dataSetting.processSetting.processName}`,
+          id
         })
         this.$nextTick(() => {
           // const FlowChart = FlowChart;

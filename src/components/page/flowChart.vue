@@ -140,21 +140,21 @@
                           :currentEdgeId="currentEdgeId"
                           @edgeLabelChange="edgeLabelChange"/>
                     </div>
-                    <div v-show="toolBarShow==='message'">
-                      <div class="title">消息管理</div>
-                      <div>
-                        <el-card class="messageInfo"
-                                 v-for="(m,idx) in messagesList"
-                                 :key="idx">
-                          <p>{{ m.time }}</p>
-                          <div>
-                            <i class="el-icon-circle-close"
-                               style="color:#ff0000;font-size:26px;position:relative;top:5px;"></i>
-                            {{ m.message }}
-                          </div>
-                        </el-card>
-                      </div>
-                    </div>
+<!--                    <div v-show="toolBarShow==='message'">-->
+<!--                      <div class="title">消息管理</div>-->
+<!--                      <div>-->
+<!--                        <el-card class="messageInfo"-->
+<!--                                 v-for="(m,idx) in messagesList"-->
+<!--                                 :key="idx">-->
+<!--                          <p>{{ m.time }}</p>-->
+<!--                          <div>-->
+<!--                            <i class="el-icon-circle-close"-->
+<!--                               style="color:#ff0000;font-size:26px;position:relative;top:5px;"></i>-->
+<!--                            {{ m.message }}-->
+<!--                          </div>-->
+<!--                        </el-card>-->
+<!--                      </div>-->
+<!--                    </div>-->
                   </div>
                 </el-main>
                 <link rel="stylesheet" href="./static/css/common.css">
@@ -209,7 +209,7 @@ import FlowChart from 'flowChart/index';
 import model from 'flowChart/model';
 import {dataSetting, menuTypes} from 'flowChart/dataSetting';
 import command from 'flowChart/command';
-import {getServiceFlow, getServiceInfo, serviceFlowSave} from 'api/index.js'
+// import {getServiceFlow, getServiceInfo, serviceFlowSave} from 'api/index.js'
 import nodeSetting from 'components/common/nodeSetting.vue';
 import edgeSetting from 'components/common/edgeSetting.vue';
 
@@ -334,22 +334,22 @@ export default {
     this.nodeData = menuData;
     const json = model.getData()
     json.serviceId = window.serviceId
-    try {
-      const res = await getServiceInfo(json.serviceId)
-      json.serviceName = res.data.serviceName || ''
-      json.serviceDescription = res.data.des || ''
-    } catch (error) {
-      this.$message.error(error.message)
-    }
-    try {
-      const res = await getServiceFlow(json.serviceId)
-      if (res && res.data && res.data.serviceId && res.data.data) {
-        FlowChart.loadData(JSON.parse(res.data.data))
-        this.flowChartJson = model.getData()
-      }
-    } catch (error) {
-      this.$message.error(error.message)
-    }
+    // try {
+    //   const res = await getServiceInfo(json.serviceId)
+    //   json.serviceName = res.data.serviceName || ''
+    //   json.serviceDescription = res.data.des || ''
+    // } catch (error) {
+    //   this.$message.error(error.message)
+    // }
+    // try {
+    //   const res = await getServiceFlow(json.serviceId)
+    //   if (res && res.data && res.data.serviceId && res.data.data) {
+    //     FlowChart.loadData(JSON.parse(res.data.data))
+    //     this.flowChartJson = model.getData()
+    //   }
+    // } catch (error) {
+    //   this.$message.error(error.message)
+    // }
   },
   methods: {
     // 递归遍历更新参数映射脚本
@@ -492,6 +492,10 @@ export default {
         if (this.nodeDataErrors.length) {
           msg = '标红节点属性配置未完善'
         }
+
+
+        //TODO：加个实体类型判断是否为空
+
       }
       if (msg) {
         this.$message.warning(msg)
@@ -527,7 +531,7 @@ export default {
           for (let i = 0; i < obj.nodes.length; i++) {
             let entity = {}
             entity.id = obj.nodes[i].id
-            entity.entityName = obj.nodes[i].data.dataSetting.processSetting.processName
+            entity.entityType = obj.nodes[i].data.dataSetting.processSetting.processName
             entity.className = obj.nodes[i].data.dataSetting.processSetting.className
             entity.point = {}
             entity.point.targets = [...obj.nodes[i].points.targets]
@@ -548,7 +552,7 @@ export default {
         let filter_json = filter(json)
         console.log("EntityJson", filter_json)
 
-        await serviceFlowSave(filter_json)//把最终的json传给后台
+        // await serviceFlowSave(filter_json)//把最终的json传给后台
         this.$message.success('保存成功')
       } catch (error) {
         this.$message.error(error.message)
@@ -657,5 +661,6 @@ export default {
 };
 </script>
 <style scoped>
+
 
 </style>

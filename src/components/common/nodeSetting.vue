@@ -10,7 +10,7 @@
           <template v-if="value.type !== 'none'">
             <span class="input-label">
               {{ value.label }}
-              <i class="required-icon" v-if="value.required">*</i>
+              <i class="required-icon" v-if="value.required" >*</i>
             </span>
             <span class="input-relative">
               <el-input
@@ -34,14 +34,15 @@
           <template>
           <span class="input-label">
             实体类别
+            <i class="required-icon" >*</i>
           </span>
             <span class="input-relative">
-            <select v-model="currentNodeData.dataSetting.processSetting['className']">
-            <option>disease</option>
-            <option>symptom</option>
-            <option>complication</option>
-          </select>
-          </span>
+              <select class="select" v-model="currentNodeData.dataSetting.processSetting['className']">
+                <option>disease</option>
+                <option>symptom</option>
+                <option>complication</option>
+              </select>
+            </span>
           </template>
         </p>
 
@@ -113,11 +114,17 @@
 <!--            过程出参-->
 <!--          </el-button>-->
 <!--        </p>-->
-<!--        <p v-for="(item, index) in currentNodeData.menuItems || []" :key="item.id + 'menuItem'">-->
-<!--          <span class="input-label">{{currentNodeData.type === 'condition' ? '条件' : '过程'}}{{index+1}}</span>-->
-<!--          <el-input size="small" v-model="item.value"></el-input>-->
-<!--        </p>-->
+        <p v-for="(item, index) in currentNodeData.menuItems || []" :key="item.id + 'menuItem'">
+          <span
+              class="input-label"></span>
+          <el-input
+              size="small"
+              v-model="currentNodeData.dataSetting.processSetting['processName']"
+              disabled
+              ></el-input>
 
+        </p>
+        <!--          -->
       </div>
       <!--<el-dialog-->
       <!--v-if="currentNodeData.type === 'atomService'"-->
@@ -626,5 +633,18 @@
     };
 </script>
 <style scoped>
+ .select {
+   border-color: #DCDFE6;
+   border-radius: 4px;
+   height: 32px;
+   width: 279px;
+ }
 
+ .flowChartWrap #mainNodeInfo .attr-box .input-label {
+   padding-top: 12px;
+ }
+
+ .flowChartWrap #mainNodeInfo .attr-box .input-label .required-icon {
+   top: 10px;
+ }
 </style>

@@ -1,8 +1,15 @@
 import request from '../utils/request';
 //所有的向api的请求在这里写
+//保存流程图json
+export const serviceFlowSave = data => {
+    return request({
+        url: `/service/flow/save`,
+        method: 'post',
+        params: data
+    })
+};
 
-
-
+//--------原有系统业务------------
 //fetchData是以query为参数的函数，将请求参数作为参数，返回请求api的结果
 export const fetchData = query => {
     return request({
