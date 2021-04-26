@@ -98,6 +98,10 @@ export default {
     };
 </script>
 <style scoped>
+    ::v-deep .logo {
+      width: 300px !important;
+    }
+
     .header {
         position: relative;
         box-sizing: border-box;
