@@ -212,7 +212,6 @@ import command from 'flowChart/command';
 import {getServiceFlow, getServiceInfo, serviceFlowSave} from 'api/index.js'
 import nodeSetting from 'components/common/nodeSetting.vue';
 import edgeSetting from 'components/common/edgeSetting.vue';
-import {createUuid} from "../../flowChart/utils";
 
 export default {
   components: {
@@ -504,17 +503,21 @@ export default {
 
         function filter(obj) {
           let filter_json = {}
-          let map= {}
+          let map = []
           for (const key in obj.edgesLabel) {
             if (obj.edgesLabel.hasOwnProperty(key)) {
               const value = obj.edgesLabel[key]
               const sourceNode = key.split("&&")[0].split("-source")[0]
               const targetNode = key.split("&&")[1].split("-target")[0]
               const newKey = model.getNodeData(sourceNode).dataSetting.processSetting.processName + "&&" + model.getNodeData(targetNode).dataSetting.processSetting.processName
-              map[newKey+"-ignore"+createUuid()]=value
+              //map[newKey+"-ignore"+createUuid()]=value
+              const relation = {};
+              relation["key"] = newKey
+              relation["value"] = value
+              map.push(relation);
             }
           }
-          filter_json.relations=map
+          filter_json.relations = map
           filter_json.entities = createEntity(obj)
           return filter_json
         }
