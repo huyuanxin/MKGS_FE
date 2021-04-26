@@ -1,17 +1,19 @@
 
   export default [
     {
-      label: '逻辑组件',
+      label: '实体关系组件',
       id: 'logicCom',
       children: [{
-        label: '判断',
+        label: '实体',
         id: 'condition',
         icon: 'node-com-icon icon-condition',
-      }, {
-        label: '循环',
-        id: 'iteration',
-        icon: 'node-com-icon icon-iteration',
-      }],
+      },
+      // {
+      //   label: '关系',
+      //   id: 'iteration',
+      //   icon: 'node-com-icon icon-iteration',
+      // }
+      ],
     },
       // {
       //   label: '服务组件',

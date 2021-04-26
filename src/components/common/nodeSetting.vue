@@ -1,10 +1,10 @@
 <template>
     <div class="node-setting">
-      <div class="title">过程属性配置</div>
+      <div class="title">实体属性配置</div>
       <div class="attr-box">
         <p>
-          <span class="item">过程类型</span>
-          <span class="value">{{typeMap[currentNodeData.type]}}</span>
+<!--          <span class="item">过程类型</span>-->
+<!--          <span class="value">{{typeMap[currentNodeData.type]}}</span>-->
         </p>
         <p v-for="(value, key) in dataSetting[currentNodeData.type].processSetting" :key="'processSetting' + key" v-show="value.type !== 'none'">
           <template v-if="value.type !== 'none'">
@@ -45,78 +45,78 @@
           </template>
         </p>
 
-        <p class="call-attr" v-if="Object.keys(dataSetting[currentNodeData.type].callSetting || {}).length && currentNodeData.type !== 'condition'">调用属性配置</p>
-        <p v-for="(value, key) in dataSetting[currentNodeData.type].callSetting" :key="key" v-show="value.type !== 'none'">
-          <template v-if="value.type !== 'none'">
-            <span :class="value.type === 'dialogSelect' || value.type.includes('ace') ? 'item' : 'input-label'">
-              {{ value.label }}
-              <i class="required-icon" v-if="value.required">*</i>
-            </span>
-            <el-select style="width: 100%;" v-if="value.type === 'select'" size="small" v-model="currentNodeData.dataSetting.callSetting[key]">
-              <el-option
-                v-for="option in value.options"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value">
-              </el-option>
-            </el-select>
-            <span class="value" v-else-if="value.type === 'dialogSelect'">
-              <el-button :class="{'button-error': curErrors.includes('callSetting.' + key)}" type="default" size="small" @click="showDialog">
-                {{currentNodeData.dataSetting.callSetting[key].id ? '重新选择' : '选择服务'}}
-              </el-button>
-              <span class="m-l-60 m-t-5 line-overflow-1" v-if="currentNodeData.dataSetting.callSetting[key].id">
-                已选  {{ currentNodeData.dataSetting.callSetting[key].serviceName }}
-              </span>
-            </span>
-            <span class="value" v-else-if="value.type.includes('ace')">
-              <el-button
-                @click.stop="showDialog2(value, key)"
-                :style="{'border-color': curErrors.includes('callSetting.' + key) ? 'red' : ''}"
-                size="mini"
-                type="default">
-                <template v-if="currentNodeData.dataSetting.callSetting[key]">
-                  <i class="el-icon-success"></i>已配置
-                </template>
-                <template v-else>
-                  <i class="el-icon-remove"></i>未配置
-                </template>
-              </el-button>
-            </span>
-            <span class="input-relative" v-else>
-              <el-input
-                :class="{'input-error': curErrors.includes('callSetting.' + key)}"
-                :type="value.type"
-                size="small"
-                v-model="currentNodeData.dataSetting.callSetting[key]"
-                @focus="inputFocus('callSetting.' + key)">
-              </el-input>
-              <span
-                v-if="curErrors.includes('callSetting.' + key)"
-                class="error-text"
-                :style="{'bottom': value.type === 'text' ? '-23px' : '-17px'}">
-                {{ curErrorMsg['callSetting.' + key] || '必填' }}
-              </span>
-            </span>
-          </template>
-        </p>
-        <p class="text-center" v-if="currentNodeData.type !== 'async' && currentNodeData.type !== 'callback'">
-          <el-button
-            size="small"
-            type="primary"
-            @click="changeBreadList([{ label: currentNodeData.dataSetting.processSetting.processName + '过程入参', pageType: 'processParameterIn' }])">
-            过程入参
-          </el-button>
-          <el-button
-            size="small"
-            type="primary"
-            @click="changeBreadList([{ label: currentNodeData.dataSetting.processSetting.processName + '过程出参', pageType: 'processParameterOut' }])">
-            过程出参
-          </el-button>
-        </p>
-        <p v-for="(item, index) in currentNodeData.menuItems || []" :key="item.id + 'menuItem'">
-          <span class="input-label">{{currentNodeData.type === 'condition' ? '条件' : '过程'}}{{index+1}}</span>
-          <el-input size="small" v-model="item.value"></el-input>
-        </p>
+<!--        <p class="call-attr" v-if="Object.keys(dataSetting[currentNodeData.type].callSetting || {}).length && currentNodeData.type !== 'condition'">调用属性配置</p>-->
+<!--        <p v-for="(value, key) in dataSetting[currentNodeData.type].callSetting" :key="key" v-show="value.type !== 'none'">-->
+<!--          <template v-if="value.type !== 'none'">-->
+<!--            <span :class="value.type === 'dialogSelect' || value.type.includes('ace') ? 'item' : 'input-label'">-->
+<!--              {{ value.label }}-->
+<!--              <i class="required-icon" v-if="value.required">*</i>-->
+<!--            </span>-->
+<!--            <el-select style="width: 100%;" v-if="value.type === 'select'" size="small" v-model="currentNodeData.dataSetting.callSetting[key]">-->
+<!--              <el-option-->
+<!--                v-for="option in value.options"-->
+<!--                :key="option.value"-->
+<!--                :label="option.label"-->
+<!--                :value="option.value">-->
+<!--              </el-option>-->
+<!--            </el-select>-->
+<!--            <span class="value" v-else-if="value.type === 'dialogSelect'">-->
+<!--              <el-button :class="{'button-error': curErrors.includes('callSetting.' + key)}" type="default" size="small" @click="showDialog">-->
+<!--                {{currentNodeData.dataSetting.callSetting[key].id ? '重新选择' : '选择服务'}}-->
+<!--              </el-button>-->
+<!--              <span class="m-l-60 m-t-5 line-overflow-1" v-if="currentNodeData.dataSetting.callSetting[key].id">-->
+<!--                已选  {{ currentNodeData.dataSetting.callSetting[key].serviceName }}-->
+<!--              </span>-->
+<!--            </span>-->
+<!--            <span class="value" v-else-if="value.type.includes('ace')">-->
+<!--              <el-button-->
+<!--                @click.stop="showDialog2(value, key)"-->
+<!--                :style="{'border-color': curErrors.includes('callSetting.' + key) ? 'red' : ''}"-->
+<!--                size="mini"-->
+<!--                type="default">-->
+<!--                <template v-if="currentNodeData.dataSetting.callSetting[key]">-->
+<!--                  <i class="el-icon-success"></i>已配置-->
+<!--                </template>-->
+<!--                <template v-else>-->
+<!--                  <i class="el-icon-remove"></i>未配置-->
+<!--                </template>-->
+<!--              </el-button>-->
+<!--            </span>-->
+<!--            <span class="input-relative" v-else>-->
+<!--              <el-input-->
+<!--                :class="{'input-error': curErrors.includes('callSetting.' + key)}"-->
+<!--                :type="value.type"-->
+<!--                size="small"-->
+<!--                v-model="currentNodeData.dataSetting.callSetting[key]"-->
+<!--                @focus="inputFocus('callSetting.' + key)">-->
+<!--              </el-input>-->
+<!--              <span-->
+<!--                v-if="curErrors.includes('callSetting.' + key)"-->
+<!--                class="error-text"-->
+<!--                :style="{'bottom': value.type === 'text' ? '-23px' : '-17px'}">-->
+<!--                {{ curErrorMsg['callSetting.' + key] || '必填' }}-->
+<!--              </span>-->
+<!--            </span>-->
+<!--          </template>-->
+<!--        </p>-->
+<!--        <p class="text-center" v-if="currentNodeData.type !== 'async' && currentNodeData.type !== 'callback'">-->
+<!--          <el-button-->
+<!--            size="small"-->
+<!--            type="primary"-->
+<!--            @click="changeBreadList([{ label: currentNodeData.dataSetting.processSetting.processName + '过程入参', pageType: 'processParameterIn' }])">-->
+<!--            过程入参-->
+<!--          </el-button>-->
+<!--          <el-button-->
+<!--            size="small"-->
+<!--            type="primary"-->
+<!--            @click="changeBreadList([{ label: currentNodeData.dataSetting.processSetting.processName + '过程出参', pageType: 'processParameterOut' }])">-->
+<!--            过程出参-->
+<!--          </el-button>-->
+<!--        </p>-->
+<!--        <p v-for="(item, index) in currentNodeData.menuItems || []" :key="item.id + 'menuItem'">-->
+<!--          <span class="input-label">{{currentNodeData.type === 'condition' ? '条件' : '过程'}}{{index+1}}</span>-->
+<!--          <el-input size="small" v-model="item.value"></el-input>-->
+<!--        </p>-->
 
       </div>
       <!--<el-dialog-->

@@ -169,7 +169,7 @@
         collects: { label: '收集项' , value: '', type: 'textarea' },
         script: { label: '循环过程的数组' , value: [ // 根据连线关系额外新增
           /* 通过流程图连线关系计算填充数据提交给后端
-            { 
+            {
               itemName, 菜单项的名字
               process  过程id（确认一下传过程名还是过程id）
             }
@@ -182,13 +182,13 @@
         invokeId: { label: '数据表自增id' , value: '', type: 'none' },
         script: { label: '条件过程的数组' , value: [
         /* 通过流程图连线关系计算填充数据提交给后端
-          { 
+          {
             expression, 条件表达式
             process  过程id（确认一下传过程名还是过程id）
           }
         */
         ], type: 'none' }
-      } 
+      }
     },
     // 异步过程
       // async: { callSetting: {
@@ -246,14 +246,14 @@
         outerProcess: { label: '外部过程' , value: '', type: 'none' },
         invokeType: { label: '过程类型' , value: '', type: 'none' },
 
-        processName: { label: '过程名称' , value: '', type: 'text', required: true },
-        expression: { label: '过程条件' , value: '', type: 'textarea' },
-        des: { label: '过程描述' , value: '', type: 'textarea' }
+        processName: { label: '实体名称' , value: '', type: 'text', required: true },
+        // expression: { label: '过程条件' , value: '', type: 'textarea' },
+        // des: { label: '过程描述' , value: '', type: 'textarea' }
       }
       // 过程出入参和参数映射配置
-      data[key].paramsSetting = { 
-        in: { label: '入参配置参数', value: [] }, 
-        out: { label: '出参配置参数', value: [] }, 
+      data[key].paramsSetting = {
+        in: { label: '入参配置参数', value: [] },
+        out: { label: '出参配置参数', value: [] },
       }
     }
   }
