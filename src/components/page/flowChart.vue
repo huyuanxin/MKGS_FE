@@ -514,7 +514,7 @@ export default {
               map[newKey+"-ignore"+createUuid()]=value
             }
           }
-          filter_json.edgesLabel=map
+          filter_json.relations=map
           filter_json.entities = createEntity(obj)
           return filter_json
         }
