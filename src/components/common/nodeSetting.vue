@@ -127,17 +127,6 @@
 <!--            过程出参-->
 <!--          </el-button>-->
 <!--        </p>-->
-        <p v-for="(item, index) in currentNodeData.menuItems || []" :key="item.id + 'menuItem'">
-          <span
-              class="input-label"></span>
-          <el-input
-              size="small"
-              v-model="currentNodeData.dataSetting.processSetting['processName']"
-              disabled
-              ></el-input>
-
-        </p>
-        <!--          -->
       </div>
       <!--<el-dialog-->
       <!--v-if="currentNodeData.type === 'atomService'"-->
@@ -600,6 +589,7 @@
         changeNodeData(val, key) {
             if (key === 'processName') {
                 const nodeEl = document.getElementById(currentNodeId)
+              this.currentNodeData.menuItems.forEach(item => item.value = val)
                 nodeEl && (nodeEl.vNode.$children[0].text = val)
             } else if (key === 'des') {
                 const nodeEl = document.getElementById(currentNodeId)

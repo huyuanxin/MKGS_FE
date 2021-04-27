@@ -56,7 +56,7 @@ export default {
         const id = window.currentNodeId + "-source" + createUuid()
         //const id = data.dataSetting.processSetting.processName + "-source" + createUuid()
         this.menuItems.push({
-          value: `${data.dataSetting.processSetting.processName}`,
+            value: `${data.dataSetting.processSetting.processName === '' ? 'condition' : `${data.dataSetting.processSetting.processName}`}`,
           id
         })
         this.$nextTick(() => {
