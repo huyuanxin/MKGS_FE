@@ -1,4 +1,4 @@
-
+import getEntityType from '../api/index'
   // 各个类型节点的dataSetting配置项映射
   const data = {
     // 数据库访问
@@ -235,28 +235,36 @@
       // atomService: "atomService"
   }
   const menuTypes = ['condition', 'iteration', 'async', 'callback']
-  for (let key in data) {
-    if (data.hasOwnProperty(key)) {
-      // 过程属性配置
-      data[key].processSetting = {
-        // type为none时不显示在界面上，具体值需要提交给后端的时候再根据流程图数据计算填充
-        id: { label: '过程id' , value: '', type: 'none' },
-        serviceId: { label: '服务id' , value: '', type: 'none' },
-        prevProcess: { label: '前序过程' , value: [], type: 'none' },
-        outerProcess: { label: '外部过程' , value: '', type: 'none' },
-        invokeType: { label: '过程类型' , value: '', type: 'none' },
+  new Promise((resolve) => {
+    // 请求数据
+    // let className_data = getEntityType();
+    let className_data = ['disease', 'symptom', 'component']
+    resolve(className_data)
+  }).then((className_data) => {
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        // 过程属性配置
+        data[key].processSetting = {
+          // type为none时不显示在界面上，具体值需要提交给后端的时候再根据流程图数据计算填充
+          id: { label: '过程id' , value: '', type: 'none' },
+          serviceId: { label: '服务id' , value: '', type: 'none' },
+          prevProcess: { label: '前序过程' , value: [], type: 'none' },
+          outerProcess: { label: '外部过程' , value: '', type: 'none' },
+          invokeType: { label: '过程类型' , value: '', type: 'none' },
 
-        processName: { label: '实体名称' , value: '', type: 'text', required: true },
-        // expression: { label: '过程条件' , value: '', type: 'textarea' },
-        // des: { label: '过程描述' , value: '', type: 'textarea' }
-      }
-      // 过程出入参和参数映射配置
-      data[key].paramsSetting = {
-        in: { label: '入参配置参数', value: [] },
-        out: { label: '出参配置参数', value: [] },
+          processName: { label: '实体名称' , value: '', type: 'text', required: true },
+          className: { label: '实体类型' , value: '', type: 'select', required: true, children: className_data },
+          // expression: { label: '过程条件' , value: '', type: 'textarea' },
+          // des: { label: '过程描述' , value: '', type: 'textarea' }
+        }
+        // 过程出入参和参数映射配置
+        data[key].paramsSetting = {
+          in: { label: '入参配置参数', value: [] },
+          out: { label: '出参配置参数', value: [] },
+        }
       }
     }
-  }
+  })
 
   let dataSetting = data;
   export {

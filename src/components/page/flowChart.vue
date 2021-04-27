@@ -225,7 +225,7 @@ export default {
       parameterPageTypes: ['processParameterIn', 'processParameterOut', 'serviceParameterIn', 'serviceParameterOut'],
       pageType: 'editor', // editor 编辑器 processParameterIn 过程入参 processParameterOut 过程出参 serviceParameterIn 服务入参 serviceParameterOut 服务出参 parameterMap 参数映射
       flowChartJson: model.getData(),
-      showType: 'node',
+      showType: undefined,
       currentNodeId: '',
       currentNodeData: undefined,
       edgesLabel: '',
@@ -455,6 +455,8 @@ export default {
         }
       }
 
+
+      console.log('json >>>>>>>> ', json)
       // 填充头节点id 最少一个，可能多个，用数组表示
       json.head = json.nodes.filter(x => !x.data.dataSetting.processSetting.prevProcess.length && !x.data.dataSetting.processSetting.outerProcess).map(x => x.id)
 
@@ -469,10 +471,14 @@ export default {
           if (processSetting) {
             const settingType = 'processSetting'
             const data = dataSetting[x.data.type][settingType]
+            console.log(data)
             for (let y in processSetting) {
               if (processSetting.hasOwnProperty(y) && !processSetting[y] && data[y] && data[y].required) {
                 this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
               }
+              // if(!processSetting.hasOwnProperty('className')) {
+              //   this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
+              // }
             }
           }
           if (callSetting) {
@@ -490,6 +496,7 @@ export default {
           }
         })
         if (this.nodeDataErrors.length) {
+          console.log(this.nodeDataErrors)
           msg = '标红节点属性配置未完善'
         }
 

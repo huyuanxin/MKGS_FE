@@ -7,44 +7,57 @@
 <!--          <span class="value">{{typeMap[currentNodeData.type]}}</span>-->
         </p>
         <p v-for="(value, key) in dataSetting[currentNodeData.type].processSetting" :key="'processSetting' + key" v-show="value.type !== 'none'">
-          <template v-if="value.type !== 'none'">
+          <template v-if="value.type === 'select'">
             <span class="input-label">
               {{ value.label }}
               <i class="required-icon" v-if="value.required" >*</i>
             </span>
-            <span class="input-relative">
+              <span class="input-relative">
+                <select class="select" v-model="currentNodeData.dataSetting.processSetting[key]">
+                  <option v-for="(item, index) in value.children" :key="index">{{ item }}</option>
+                </select>
+              </span>
+          </template>
+          <template v-else>
+            <template v-if="value.type !== 'none'">
+            <span class="input-label">
+              {{ value.label }}
+              <i class="required-icon" v-if="value.required" >*</i>
+            </span>
+              <span class="input-relative">
               <el-input
-                :class="{'input-error': curErrors.includes('processSetting.' + key)}"
-                :type="value.type"
-                size="small"
-                v-model="currentNodeData.dataSetting.processSetting[key]"
-                @input="val => changeNodeData(val, key)"
-                @focus="inputFocus('processSetting.' + key)">
+                  :class="{'input-error': curErrors.includes('processSetting.' + key)}"
+                  :type="value.type"
+                  size="small"
+                  v-model="currentNodeData.dataSetting.processSetting[key]"
+                  @input="val => changeNodeData(val, key)"
+                  @focus="inputFocus('processSetting.' + key)">
               </el-input>
               <span
-                v-if="curErrors.includes('processSetting.' + key)"
-                class="error-text"
-                :style="{'bottom': value.type === 'text' ? '-23px' : '-17px'}">
+                  v-if="curErrors.includes('processSetting.' + key)"
+                  class="error-text"
+                  :style="{'bottom': value.type === 'text' ? '-23px' : '-17px'}">
                 {{ curErrorMsg['processSetting.' + key] || '必填' }}
               </span>
             </span>
+            </template>
           </template>
         </p>
-        <p>
-          <template>
-          <span class="input-label">
-            实体类别
-            <i class="required-icon" >*</i>
-          </span>
-            <span class="input-relative">
-              <select class="select" v-model="currentNodeData.dataSetting.processSetting['className']">
-                <option>disease</option>
-                <option>symptom</option>
-                <option>complication</option>
-              </select>
-            </span>
-          </template>
-        </p>
+<!--        <p>-->
+<!--          <template>-->
+<!--          <span class="input-label">-->
+<!--            实体类别-->
+<!--            <i class="required-icon" >*</i>-->
+<!--          </span>-->
+<!--            <span class="input-relative">-->
+<!--              <select class="select" v-model="currentNodeData.dataSetting.processSetting['className']">-->
+<!--                <option>disease</option>-->
+<!--                <option>symptom</option>-->
+<!--                <option>complication</option>-->
+<!--              </select>-->
+<!--            </span>-->
+<!--          </template>-->
+<!--        </p>-->
 
 <!--        <p class="call-attr" v-if="Object.keys(dataSetting[currentNodeData.type].callSetting || {}).length && currentNodeData.type !== 'condition'">调用属性配置</p>-->
 <!--        <p v-for="(value, key) in dataSetting[currentNodeData.type].callSetting" :key="key" v-show="value.type !== 'none'">-->

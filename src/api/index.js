@@ -1,5 +1,15 @@
 import request from '../utils/request';
 //所有的向api的请求在这里写
+
+//获取实体类别
+export const getEntityType = data => {
+    return request({
+        url: `/service/flow/save`,
+        method: 'post',
+        params: data
+    })
+};
+
 //保存流程图json
 export const serviceFlowSave = data => {
     return request({
