@@ -498,9 +498,6 @@ export default {
         msg = '标红节点属性配置未完善'
       }
 
-
-      //TODO：加个实体类型判断是否为空
-
       if (msg) {
         this.$message.warning(msg)
         return
