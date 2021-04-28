@@ -12,21 +12,6 @@
                 </span>
             </li>
         </ul>
-        <!--最右侧的标签选项按钮区域-->
-        <div class="tags-close-box">
-            <!--多个el-dropdown下拉 共用一个 @command 事件  @command="handleTags" 只要将命令作为command属性传入即可-->
-            <el-dropdown @command="handleTags">
-                <!--最上层显示按钮，点击按钮显示下拉菜单-->
-                <el-button size="mini" type="primary">
-                    标签选项<i class="el-icon-arrow-down el-icon--right"></i>
-                </el-button>
-                <!--这里也使用插槽分发内容，在父组件中显示-->
-                <el-dropdown-menu size="small" slot="dropdown">
-                    <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-                    <el-dropdown-item command="all">关闭所有</el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
-        </div>
     </div>
 </template>
 
