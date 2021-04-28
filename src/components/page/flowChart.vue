@@ -140,21 +140,21 @@
                           :currentEdgeId="currentEdgeId"
                           @edgeLabelChange="edgeLabelChange"/>
                     </div>
-<!--                    <div v-show="toolBarShow==='message'">-->
-<!--                      <div class="title">消息管理</div>-->
-<!--                      <div>-->
-<!--                        <el-card class="messageInfo"-->
-<!--                                 v-for="(m,idx) in messagesList"-->
-<!--                                 :key="idx">-->
-<!--                          <p>{{ m.time }}</p>-->
-<!--                          <div>-->
-<!--                            <i class="el-icon-circle-close"-->
-<!--                               style="color:#ff0000;font-size:26px;position:relative;top:5px;"></i>-->
-<!--                            {{ m.message }}-->
-<!--                          </div>-->
-<!--                        </el-card>-->
-<!--                      </div>-->
-<!--                    </div>-->
+                    <!--                    <div v-show="toolBarShow==='message'">-->
+                    <!--                      <div class="title">消息管理</div>-->
+                    <!--                      <div>-->
+                    <!--                        <el-card class="messageInfo"-->
+                    <!--                                 v-for="(m,idx) in messagesList"-->
+                    <!--                                 :key="idx">-->
+                    <!--                          <p>{{ m.time }}</p>-->
+                    <!--                          <div>-->
+                    <!--                            <i class="el-icon-circle-close"-->
+                    <!--                               style="color:#ff0000;font-size:26px;position:relative;top:5px;"></i>-->
+                    <!--                            {{ m.message }}-->
+                    <!--                          </div>-->
+                    <!--                        </el-card>-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
                   </div>
                 </el-main>
                 <link rel="stylesheet" href="./static/css/common.css">
@@ -212,6 +212,7 @@ import command from 'flowChart/command';
 // import {getServiceFlow, getServiceInfo, serviceFlowSave} from 'api/index.js'
 import nodeSetting from 'components/common/nodeSetting.vue';
 import edgeSetting from 'components/common/edgeSetting.vue';
+import {createUuid} from "../../flowChart/utils";
 
 export default {
   components: {
@@ -460,50 +461,46 @@ export default {
       // 填充头节点id 最少一个，可能多个，用数组表示
       json.head = json.nodes.filter(x => !x.data.dataSetting.processSetting.prevProcess.length && !x.data.dataSetting.processSetting.outerProcess).map(x => x.id)
 
-      if (!json.head.length) {
-        msg = '连线有误，没有检测到头节点'
-      } else {
-        // 节点属性配置表单验证 nodeDataErrors
-        this.nodeDataErrors = []
-        json.nodes.forEach(x => {
-          const processSetting = x.data.dataSetting.processSetting
-          const callSetting = x.data.dataSetting.callSetting
-          if (processSetting) {
-            const settingType = 'processSetting'
-            const data = dataSetting[x.data.type][settingType]
-            console.log(data)
-            for (let y in processSetting) {
-              if (processSetting.hasOwnProperty(y) && !processSetting[y] && data[y] && data[y].required) {
-                this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
-              }
-              // if(!processSetting.hasOwnProperty('className')) {
-              //   this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
-              // }
+      // 节点属性配置表单验证 nodeDataErrors
+      this.nodeDataErrors = []
+      json.nodes.forEach(x => {
+        const processSetting = x.data.dataSetting.processSetting
+        const callSetting = x.data.dataSetting.callSetting
+        if (processSetting) {
+          const settingType = 'processSetting'
+          const data = dataSetting[x.data.type][settingType]
+          console.log(data)
+          for (let y in processSetting) {
+            if (processSetting.hasOwnProperty(y) && !processSetting[y] && data[y] && data[y].required) {
+              this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
             }
+            // if(!processSetting.hasOwnProperty('className')) {
+            //   this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
+            // }
           }
-          if (callSetting) {
-            const settingType = 'callSetting'
-            const data = dataSetting[x.data.type][settingType]
-            for (let y in callSetting) {
-              if (y === 'atomService') {
-                if (!callSetting[y].id) {
-                  this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
-                }
-              } else if (callSetting.hasOwnProperty(y) && !callSetting[y] && data[y] && data[y].required) {
-                this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
-              }
-            }
-          }
-        })
-        if (this.nodeDataErrors.length) {
-          console.log(this.nodeDataErrors)
-          msg = '标红节点属性配置未完善'
         }
-
-
-        //TODO：加个实体类型判断是否为空
-
+        if (callSetting) {
+          const settingType = 'callSetting'
+          const data = dataSetting[x.data.type][settingType]
+          for (let y in callSetting) {
+            if (y === 'atomService') {
+              if (!callSetting[y].id) {
+                this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
+              }
+            } else if (callSetting.hasOwnProperty(y) && !callSetting[y] && data[y] && data[y].required) {
+              this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
+            }
+          }
+        }
+      })
+      if (this.nodeDataErrors.length) {
+        console.log(this.nodeDataErrors)
+        msg = '标红节点属性配置未完善'
       }
+
+
+      //TODO：加个实体类型判断是否为空
+
       if (msg) {
         this.$message.warning(msg)
         return
@@ -523,7 +520,7 @@ export default {
               const newKey = model.getNodeData(sourceNode).dataSetting.processSetting.processName + "&&" + model.getNodeData(targetNode).dataSetting.processSetting.processName
               //map[newKey+"-ignore"+createUuid()]=value
               const relation = {};
-              relation["key"] = newKey
+              relation["key"] = newKey + "-ignore" + createUuid()
               relation["value"] = value
               map.push(relation);
             }
