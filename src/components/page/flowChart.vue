@@ -331,6 +331,9 @@ export default {
     FlowChart.on('save', () => {
       this.save()
     });
+      FlowChart.on('delete', () => {
+          this.showType = 'undefined'
+      });
 
     this.nodeData = menuData;
     const json = model.getData()
@@ -391,6 +394,7 @@ export default {
     cleanAll() {
       command.exec(command.CleanAllCommand, this.flowChartJson)
       this.flowChartJson = model.getData()
+        this.showType = 'undefined'
     },
     edgeLabelChange(val) {
       this.currentConn.setLabel({label: val})

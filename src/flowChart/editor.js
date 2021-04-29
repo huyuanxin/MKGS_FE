@@ -13,7 +13,6 @@ import command from 'flowChart/command'
 import contextMenu from 'flowChart/contextMenu'
 import Vue from 'vue';
 
-console.log('menuNode', menuNode)
 
 let container = null;
 
