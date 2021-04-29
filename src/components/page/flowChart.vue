@@ -392,9 +392,9 @@ export default {
       this.breadList = []
     },
     cleanAll() {
-      command.exec(command.CleanAllCommand, this.flowChartJson)
       this.flowChartJson = model.getData()
-        this.showType = 'undefined'
+      command.exec(command.CleanAllCommand, this.flowChartJson)
+      this.showType = 'undefined'
     },
     edgeLabelChange(val) {
       this.currentConn.setLabel({label: val})

@@ -1,6 +1,6 @@
 import editor from 'flowChart/editor';
 import model from 'flowChart/model';
-import {loadData} from 'flowChart/index'
+import FlowChart from 'flowChart/index'
 
 const commandStack = {
     commandList: [],
@@ -128,7 +128,7 @@ const commandStack = {
 
     undo() {
       // const { loadData } = require('./index')
-      loadData(this.flowChartJson)
+      FlowChart.loadData(this.flowChartJson)
     }
   }
 
