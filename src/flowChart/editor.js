@@ -266,7 +266,7 @@ function generateNode(left, top, id, {icon, value, nodeState, elId, menuItems, d
     console.log('temNode', temNode)
     const props = {
         iconCLassName: icon,
-        contentText: defaultNameMap[elId],
+        contentText: dataSetting && dataSetting.processSetting.processName ? dataSetting.processSetting.processName : defaultNameMap[elId],
         nodeState,
         nodeDes: dataSetting ? dataSetting.processSetting.des : ''
     }
