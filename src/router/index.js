@@ -39,9 +39,15 @@ export default new Router({
                 },
                 {
                     path: '/aivisits',
-                    component: () => import('views/aiVisits/index.vue'),
+                    component: () => import('views/aiVisits/new.vue'),
                     meta: {title: 'AI问诊'}
                 },
+               /* {
+                    name:"new",
+                    path: '/new',
+                    component: () => import('views/aiVisits/new.vue'),
+                    meta: {title: '新AI问诊'}
+                },*/
                 {
                     name:'SmartLeadingExamining',
                     path: '/smartleadingexamining',
