@@ -15,7 +15,7 @@ import axios from 'axios';
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
     // easy-mock服务挂了，暂时不使用了
-    //一个在线模拟后台的数据平台，通过官网注册账户之后，你就可以生成一个在线的API接口，
+    //一个在线模拟后台的数据平台，通过官网注册账户之后，你就npm 可以生成一个在线的API接口，
     // 然后通过ajax或者axios就可以访问这个接口了。
     // baseURL: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',
     /*在开发环境，前端的ajax请求需要跨域，在vue.config.js中进行跨域配置，
@@ -40,9 +40,9 @@ const service = axios.create({
     * */
 
     //开发环境中前后端分离有跨域问题，需要使用到baseURL来跳转到js代理服务器，生产环境中不使用单独的WEB服务器的情况下，注释掉这一行
-    //baseURL:'/api',
+    baseURL:'/api',
     //当部署到服务器，或者内网穿透，不是本机访问时，需要将baseURL改为外网域名地址。当本地访问时，需要该为localhost:8080
-    baseURL:'http://192.168.20.222:8081/cinema',
+  /* baseURL:'http://192.168.20.222:8081/cinema',*/
     timeout: 5000
 });
 
