@@ -1,6 +1,6 @@
 <template>
   <div style="overflow: auto">
-      <div class="clearfix clear"></div> 
+      <div class="clearfix clear"></div>
     <div id="test_questions">
         <div class="container">
           <div class="row"></div>
@@ -13,7 +13,7 @@
                 </div>
                 <div class="magnify">
                   <div class="magnify_glass"> </div>
-                  
+
                     <div id="people_model" class="">
                       <div id="draggable"></div>
                     </div>
@@ -25,6 +25,13 @@
             </div>
         </div>
     </div>
+    <el-drawer
+        title="我是标题"
+        :visible.sync="drawer"
+        :direction="direction"
+        :before-close="handleClose">
+      <span>我来啦!</span>
+    </el-drawer>
   </div>
 </template>
 
@@ -32,12 +39,15 @@
 
 import 'utils/3deye.js' //people model
 import 'utils/jquery.jfMagnify.min.js' //轮播插件S
+// import 'utils/self.js'
 
 
 export default {
   name: 'SmartLeadingExamining',
   data() {
     return {
+        drawer: false,
+        direction: 'rtl',
         moveFlag: 0, // 是否移动的flag
     }
   },
@@ -92,10 +102,9 @@ export default {
                 event.pageY = target.clientY;
             }
         });
-    
+        const that = this
 
-
-    $(function() {
+        $(function() {
 	//提前请求数据
 	var self = (function() {
 		function self() {}
@@ -666,7 +675,7 @@ export default {
 			]
 		}
 	];
-	
+
 	const BODY10 =[
 		//31-33
 		{
@@ -916,7 +925,7 @@ export default {
 			]
 		}
 	];
-	
+
 	/**
 	 * 获取身体指定点所在区域
 	 * @param {*} x 指定点的 x 坐标
@@ -966,7 +975,7 @@ export default {
     	areaPostition.forEach(p => {
         	if (x >= p.X && y >= p.Y && x <= p.X + p.W && y <= p.Y + p.H) {
             	areaResult = areaName;
-            	return areaResult; 
+            	return areaResult;
         	}
     	})
 		}
@@ -975,8 +984,8 @@ export default {
 
 	/**
 	 * original
-	 * @param {*} numy 
-	 * @param {*} numx 
+	 * @param {*} numy
+	 * @param {*} numx
 	 */
 	function model_xy(numy,numx) {
 		console.log("model_xy()执行");
@@ -987,24 +996,24 @@ export default {
 		if(num >= 1 && num <= 7){
 			if (numy >= 19 && numy <= 77) {
 				if (numx >= 118 && numx <= 165) { return "头部";}
-			} 
+			}
 			if (numy >=78  && numy <= 101) {
 				if(numx >= 94 && numx <= 184){return "肩颈部";}
-			} 
+			}
 			if (numy >= 102 && numy <= 142) {
 				if(numx >= 103 && numx <= 176){return "胸部";}
 			}
 			if (numy >= 143 && numy <= 208) {
 				if ((numx >= 104 && numx <= 175)) {return "腹部";}
-			} 
+			}
 			if (numy >= 101 && numy <= 208) {
 				if ((numx >= 71 && numx <= 103) || (numx >= 176 && numx <= 210)) {return "双上肢";}
-			} 
+			}
 			if (numy >= 208 && numy <= 285) {
 				if ((numx >= 50 && numx <= 94) || (numx >= 189 && numx <= 233)) {return "双上肢";}
 			}
 			// if (numy >= 98 && numy <= 285) {
-			// 	if ((numx >= 50 && numx <= 108) || (numx >= 175 && numx <= 232)) {return "双上肢";}	
+			// 	if ((numx >= 50 && numx <= 108) || (numx >= 175 && numx <= 232)) {return "双上肢";}
 			// 	else if (numx >= 110 && numx <= 170) {return "腹部";}
 			// }
 			if (numy >= 209 && numy <= 249) {
@@ -1012,12 +1021,12 @@ export default {
 			}
 			if (numy >= 250 && numy <= 473) {
 				if(numx >= 95 && numx <= 188){return "双下肢";}
-			}  
+			}
 			else {
 				return "未识别";
 			}
 		}
-		
+
 
 	}
 	//model
@@ -1049,7 +1058,7 @@ export default {
 		$(".magnify").append('<div id="draggable"></div>');//append() 方法在被选元素的结尾插入指定内容。
 		let posX = parseInt(e.pageX - $("#people_model").offset().left),//offset() 方法返回被选元素相对于文档的偏移坐标。
 			posY = parseInt(e.pageY - $("#people_model").offset().top);
-		
+
 		$("#draggable").css('left', posX);//css() 方法为被选元素设置或返回一个或多个样式属性。
 		$("#draggable").css('top', posY);
 
@@ -1057,7 +1066,10 @@ export default {
     	let filename = bg_src.substring(bg_src.lastIndexOf("/") + 1);
     	let num = filename.substring(0, filename.lastIndexOf("."));
 		self.selfListObj.list_2 = getBodyArea(num,posY, posX);
-		console.log("选中了"+self.selfListObj.list_2);
+
+
+		that.drawer = true;
+		console.log("选中了1"+self.selfListObj.list_2);
 	});
 	//创建小红块--兼容手机端
 	var second=0;
@@ -1080,7 +1092,8 @@ export default {
     		let filename = bg_src.substring(bg_src.lastIndexOf("/") + 1);
     		let num = filename.substring(0, filename.lastIndexOf("."));
 			self.selfListObj.list_2 = getBodyArea(num,posY, posX);
-			console.log("选中了"+self.selfListObj.list_2);
+      console.log("this >>>>>>>>>>>>>> ", this)
+			console.log("选中了2"+self.selfListObj.list_2);
             second = 0;
         }
 
@@ -1298,7 +1311,7 @@ export default {
 			str += '手机号没有输入\n';
 			$("#list_tel").addClass("false_valid").siblings().addClass("false_valid");
 			$('#list_tel').focus();
-		} 
+		}
 		if (isPhoneNo($.trim($('#list_tel').val())) == false) {
 				str += '手机号码不正确\n';
 				$("#list_tel").addClass("false_valid").siblings().addClass("false_valid");
@@ -1399,7 +1412,7 @@ export default {
 			list_4_val += $(this).val() + ',';
 		});
 		if (list_4_val.length > 0) {
-			//得到选中的checkbox值序列 
+			//得到选中的checkbox值序列
 			list_4_val = list_4_val.substring(0, list_4_val.length - 1);
 		}
 
@@ -1407,7 +1420,7 @@ export default {
 			list_5_val += $(this).val() + ',';
 		});
 		if (list_5_val.length > 0) {
-			//得到选中的checkbox值序列 
+			//得到选中的checkbox值序列
 			list_5_val = list_5_val.substring(0, list_5_val.length - 1);
 		}
 		self.selfListObj.list_1 = $("#list_1").find("input[type='radio']:checked").val();
@@ -1445,10 +1458,17 @@ export default {
 		}else{
 			$("#hpjt .nav_hover").slideUp();
 		}
-		
+
 	});
 	//header-slide End
 });
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
     }
   }
 }
