@@ -1,12 +1,11 @@
-import request from '../utils/request';
+import request from 'utils/request';
 //所有的向api的请求在这里写
 
 //获取实体类别
-export const getEntityType = data => {
+export const getEntityType = () => {
     return request({
         url: `/service/flow/save`,
-        method: 'post',
-        params: data
+        method: 'post'
     })
 };
 
