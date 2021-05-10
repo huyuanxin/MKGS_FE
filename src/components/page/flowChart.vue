@@ -209,7 +209,7 @@ import FlowChart from 'flowChart/index';
 import model from 'flowChart/model';
 import {dataSetting, menuTypes} from 'flowChart/dataSetting';
 import command from 'flowChart/command';
-// import {getServiceFlow, getServiceInfo, serviceFlowSave} from 'api/index.js'
+import { serviceFlowSave } from 'api/index.js'
 import nodeSetting from 'components/common/nodeSetting.vue';
 import edgeSetting from 'components/common/edgeSetting.vue';
 import {createUuid} from "../../flowChart/utils";
@@ -522,7 +522,7 @@ export default {
               //map[newKey+"-ignore"+createUuid()]=value
               const relation = {};
               relation["key"] = newKey + "-ignore" + createUuid()
-              relation["value"] = value
+              relation["relationName"] = value
               map.push(relation);
             }
           }
@@ -536,8 +536,8 @@ export default {
           for (let i = 0; i < obj.nodes.length; i++) {
             let entity = {}
             entity.id = obj.nodes[i].id
-            entity.entityType = obj.nodes[i].data.dataSetting.processSetting.processName
-            entity.className = obj.nodes[i].data.dataSetting.processSetting.className
+            entity.entityName = obj.nodes[i].data.dataSetting.processSetting.processName
+            entity.entityType = obj.nodes[i].data.dataSetting.processSetting.className
             entity.point = {}
             entity.point.targets = [...obj.nodes[i].points.targets]
             entity.point.sources = [...obj.nodes[i].points.sources]
@@ -555,9 +555,9 @@ export default {
 
         // 接口
         let filter_json = filter(json)
-        console.log("EntityJson", filter_json)
 
-        // await serviceFlowSave(filter_json)//把最终的json传给后台
+        await serviceFlowSave(filter_json)//把最终的json传给后台
+        console.log("EntityJson", filter_json)
         this.$message.success('保存成功')
       } catch (error) {
         this.$message.error(error.message)
