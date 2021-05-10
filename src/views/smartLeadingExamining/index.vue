@@ -13,7 +13,6 @@
                 </div>
                 <div class="magnify">
                   <div class="magnify_glass"> </div>
-
                     <div id="people_model" class="">
                       <div id="draggable"></div>
                     </div>
@@ -26,11 +25,16 @@
         </div>
     </div>
     <el-drawer
-        title="我是标题"
-        :visible.sync="drawer"
-        :direction="direction"
-        :before-close="handleClose">
-      <span>我来啦!</span>
+            :title="title"
+            :visible.sync="drawer"
+            :direction="direction"
+            :before-close="handleClose">
+        <!--<div v-for="symptom in symptoms" :key="symptom.id">-->
+        <!--<template>-->
+        <!--<el-button>symptom.symptomName</el-button>-->
+        <!--</template>-->
+        <!--</div>-->
+        <el-button v-for="symptom in symptoms" :key="symptom.id">{{symptom.symptomName}}</el-button>
     </el-drawer>
   </div>
 </template>
@@ -40,7 +44,7 @@
 import 'utils/3deye.js' //people model
 import 'utils/jquery.jfMagnify.min.js' //轮播插件S
 // import 'utils/self.js'
-
+import {getSymptomByBodyArea} from 'api/index.js'
 
 export default {
   name: 'SmartLeadingExamining',
@@ -49,6 +53,8 @@ export default {
         drawer: false,
         direction: 'rtl',
         moveFlag: 0, // 是否移动的flag
+        title: undefined,
+        symptoms: []
     }
   },
   mounted() {
@@ -1066,8 +1072,19 @@ export default {
     	let filename = bg_src.substring(bg_src.lastIndexOf("/") + 1);
     	let num = filename.substring(0, filename.lastIndexOf("."));
 		self.selfListObj.list_2 = getBodyArea(num,posY, posX);
-
-
+        //发送请求
+        //Abdomen, Back, Buttocks, Chest, Genitals, Head, LowerLimbs, ShoulderAndNeck, UpperLimbs
+        //腹部，背部，臀部，胸部，生殖器，头部，下肢，肩膀和颈部，上肢
+        //    if(self.selfListObj.list_2=)
+        // that.symptoms=
+        let result = getSymptomByBodyArea("Back");
+        // that.symptoms=[
+        //   {id:1,symptomName:"咳嗽"},
+        //   {id:2,symptomName:"咳痰"},
+        //   {id:3,symptomName:"咳血"}
+        // ];
+        console.log('>>>>>>>>>>>', that)
+        that.title = self.selfListObj.list_2 + "有何不适";
 		that.drawer = true;
 		console.log("选中了1"+self.selfListObj.list_2);
 	});
@@ -1092,7 +1109,6 @@ export default {
     		let filename = bg_src.substring(bg_src.lastIndexOf("/") + 1);
     		let num = filename.substring(0, filename.lastIndexOf("."));
 			self.selfListObj.list_2 = getBodyArea(num,posY, posX);
-      console.log("this >>>>>>>>>>>>>> ", this)
 			console.log("选中了2"+self.selfListObj.list_2);
             second = 0;
         }

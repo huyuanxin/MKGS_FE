@@ -18,6 +18,14 @@ export const serviceFlowSave = data => {
     })
 };
 
+//获取指定部位的症状
+export const getSymptomByBodyArea = data => {
+    return request({
+        url: `/3D/getDetailBody/${data}`,
+        method: 'get'
+    })
+};
+
 //--------原有系统业务------------
 //fetchData是以query为参数的函数，将请求参数作为参数，返回请求api的结果
 export const fetchData = query => {

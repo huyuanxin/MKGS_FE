@@ -30,7 +30,7 @@ module.exports = {
             '/api':{
             //目标接口域名
                 //target:'http://jsonplaceholder.typicode.com',
-                target:'http://localhost:8081/cinema',
+                target: 'http://localhost:8889/knowledge',
                 changeOrigin:true,//是否跨域
                 pathRewrite:{
                     '/api':''//重写接口,后面可以使用重写的新路径，一般不做更改
