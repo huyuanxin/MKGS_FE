@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {managerLogin} from "../../api";
+import { managerLogin } from "../../api";
 
 export default {
     data: function() {
@@ -50,7 +50,7 @@ export default {
                 this.$refs.login.validate(valid => {
                     if (valid) {
                         managerLogin(this.param).then(res => {
-                            if(res.status==200) {
+                            if(res.code==200) {
                                 this.$message.success('登录成功');
                                 //当提交之后，将当前输入的用户名存储到localStorage中
                                 localStorage.setItem('managerId', this.param.managerId);

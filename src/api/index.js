@@ -37,11 +37,11 @@ export const fetchData = query => {
     });
 };
 //判断管理员登录是否成功，参数为ID和密码，返回"success"或“error”
-export const managerLogin = query =>{
+export const managerLogin = data =>{
     return request({
-        url:'managerLogin',
-        method:'get',
-        params:query
+        url:'/admin/login',
+        method:'post',
+        data: data
     });
 };
 //获取管理员数据，请求参数managerId
