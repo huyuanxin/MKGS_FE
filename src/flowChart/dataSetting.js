@@ -1,4 +1,4 @@
-import getEntityType from '../api/index'
+import { getEntityType } from '../api/index';
   // 各个类型节点的dataSetting配置项映射
   const data = {
     // 数据库访问
@@ -235,11 +235,12 @@ import getEntityType from '../api/index'
       // atomService: "atomService"
   }
   const menuTypes = ['condition', 'iteration', 'async', 'callback']
-  new Promise((resolve) => {
+  new Promise(async (resolve) => {
     // 请求数据
-    // let className_data = getEntityType();
-    let className_data = ['disease', 'symptom', 'component']
-    resolve(className_data)
+    let className_data = await getEntityType();
+    console.log("getEntityType",className_data)
+    // let className_data = ['disease', 'symptom', 'component']
+    resolve(className_data.result)
   }).then((className_data) => {
     for (let key in data) {
       if (data.hasOwnProperty(key)) {

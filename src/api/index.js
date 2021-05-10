@@ -4,17 +4,17 @@ import request from 'utils/request';
 //获取实体类别
 export const getEntityType = () => {
     return request({
-        url: `/service/flow/save`,
-        method: 'post'
+        url: `/admin/getEntityType`,
+        method: 'get'
     })
 };
 
 //保存流程图json
 export const serviceFlowSave = data => {
     return request({
-        url: `/service/flow/save`,
+        url: `/admin/save`,
         method: 'post',
-        params: data
+        data: data // params 是用于添加到 url 上的参数
     })
 };
 
