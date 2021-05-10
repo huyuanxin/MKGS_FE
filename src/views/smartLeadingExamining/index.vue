@@ -25,17 +25,19 @@
         </div>
     </div>
     <el-drawer
-            :title="title"
             :visible.sync="drawer"
             :direction="direction"
             :before-close="handleClose">
-        <!--<div v-for="symptom in symptoms" :key="symptom.id">-->
-        <!--<template>-->
-        <!--<el-button>symptom.symptomName</el-button>-->
-        <!--</template>-->
-        <!--</div>-->
-        <el-button v-for="symptom in symptoms" :key="symptom.id">{{symptom.symptomName}}</el-button>
+        <template slot="title">
+            <div>
+                {{ title }}
+            </div>
+        </template>
+        <div class="button-container">
+            <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button">{{symptom}}</el-button>
+        </div>
     </el-drawer>
+
   </div>
 </template>
 
@@ -1074,19 +1076,34 @@ export default {
 		self.selfListObj.list_2 = getBodyArea(num,posY, posX);
         //发送请求
         //Abdomen, Back, Buttocks, Chest, Genitals, Head, LowerLimbs, ShoulderAndNeck, UpperLimbs
-        //腹部，背部，臀部，胸部，生殖器，头部，下肢，肩膀和颈部，上肢
-        //    if(self.selfListObj.list_2=)
-        // that.symptoms=
-        let result = getSymptomByBodyArea("Back");
-        // that.symptoms=[
-        //   {id:1,symptomName:"咳嗽"},
-        //   {id:2,symptomName:"咳痰"},
-        //   {id:3,symptomName:"咳血"}
-        // ];
-        console.log('>>>>>>>>>>>', that)
-        that.title = self.selfListObj.list_2 + "有何不适";
-		that.drawer = true;
-		console.log("选中了1"+self.selfListObj.list_2);
+        //腹部，背部，臀部，胸部，生殖器，头部，双下肢，肩颈部，双上肢
+        that.title = `请选择${self.selfListObj.list_2}具体不适部位`;
+        if (self.selfListObj.list_2 == "腹部") {
+            self.selfListObj.list_2 = "Abdomen"
+        } else if (self.selfListObj.list_2 == "背部") {
+            self.selfListObj.list_2 = "Back"
+        } else if (self.selfListObj.list_2 == "臀部") {
+            self.selfListObj.list_2 = "Buttocks"
+        } else if (self.selfListObj.list_2 == "胸部") {
+            self.selfListObj.list_2 = "Chest"
+        } else if (self.selfListObj.list_2 == "生殖器") {
+            self.selfListObj.list_2 = "Genitals"
+        } else if (self.selfListObj.list_2 == "头部") {
+            self.selfListObj.list_2 = "Head"
+        } else if (self.selfListObj.list_2 == "双下肢") {
+            self.selfListObj.list_2 = "LowerLimbs"
+        } else if (self.selfListObj.list_2 == "肩颈部") {
+            self.selfListObj.list_2 = "ShoulderAndNeck"
+        } else if (self.selfListObj.list_2 == "双上肢") {
+            self.selfListObj.list_2 = "UpperLimbs"
+        }
+        getSymptomByBodyArea(self.selfListObj.list_2).then(data => {
+            let result = data
+            that.symptoms = result.result
+            console.log("选中了1" + self.selfListObj.list_2);
+            that.drawer = true;
+        });
+
 	});
 	//创建小红块--兼容手机端
 	var second=0;
@@ -1485,12 +1502,27 @@ export default {
             done();
           })
           .catch(_ => {});
-    }
+    },
+      drawback() {
+          this.drawer = false
+      }
   }
 }
 </script>
 
 <style scoped>
-@import "~assets/css/smartLeadingExamining/self.css"
+    @import "~assets/css/smartLeadingExamining/self.css";
 /* @import "../../assets/css/smartLeadingExamining/self.css" */
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .sym-button {
+        margin-bottom: 10px;
+    }
+
+    .sym-button:first-of-type {
+        margin-left: 10px;
+    }
 </style>
