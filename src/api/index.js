@@ -9,6 +9,14 @@ export const getEntityType = () => {
     })
 };
 
+//获取关系类别
+export const getRelationsType = () => {
+    return request({
+        url: `/admin/getRelationsType`,
+        method: 'get'
+    })
+};
+
 //保存流程图json
 export const serviceFlowSave = data => {
     return request({
