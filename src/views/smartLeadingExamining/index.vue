@@ -25,18 +25,35 @@
         </div>
     </div>
     <el-drawer
-            :visible.sync="drawer"
+            :visible.sync="bodyAreaDrawer"
             :direction="direction"
             :before-close="handleClose">
         <template slot="title">
             <div>
-                {{ title }}
+                {{ bodyAreaTitle }}
             </div>
         </template>
         <div class="button-container">
-            <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button">{{symptom}}</el-button>
+            <el-button v-for="bodyArea in bodyAreas" :key="bodyArea" class="sym-button"
+                       @click="getSymptomsByBodyArea(bodyArea)">{{bodyArea}}
+            </el-button>
         </div>
     </el-drawer>
+
+      <el-drawer
+              :visible.sync="symptomDrawer"
+              :direction="direction"
+              :before-close="handleClose">
+          <template slot="title">
+              <div>
+                  <i class="el-icon-back" style="cursor: pointer" @click="drawback"/>
+                  {{ symptomTitle }}
+              </div>
+          </template>
+          <div class="button-container">
+              <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button">{{symptom}}</el-button>
+          </div>
+      </el-drawer>
 
   </div>
 </template>
@@ -46,16 +63,19 @@
 import 'utils/3deye.js' //people model
 import 'utils/jquery.jfMagnify.min.js' //轮播插件S
 // import 'utils/self.js'
-import {getSymptomByBodyArea} from 'api/index.js'
+import {getDetailBodyArea, getBodySymptoms} from 'api/index.js'
 
 export default {
   name: 'SmartLeadingExamining',
   data() {
     return {
-        drawer: false,
+        bodyAreaDrawer: false,
+        symptomDrawer: false,
         direction: 'rtl',
         moveFlag: 0, // 是否移动的flag
-        title: undefined,
+        bodyAreaTitle: undefined,
+        symptomTitle: undefined,
+        bodyAreas: [],
         symptoms: []
     }
   },
@@ -1077,7 +1097,7 @@ export default {
         //发送请求
         //Abdomen, Back, Buttocks, Chest, Genitals, Head, LowerLimbs, ShoulderAndNeck, UpperLimbs
         //腹部，背部，臀部，胸部，生殖器，头部，双下肢，肩颈部，双上肢
-        that.title = `请选择${self.selfListObj.list_2}具体不适部位`;
+        that.bodyAreaTitle = `请选择${self.selfListObj.list_2}具体不适部位`;
         if (self.selfListObj.list_2 == "腹部") {
             self.selfListObj.list_2 = "Abdomen"
         } else if (self.selfListObj.list_2 == "背部") {
@@ -1097,11 +1117,11 @@ export default {
         } else if (self.selfListObj.list_2 == "双上肢") {
             self.selfListObj.list_2 = "UpperLimbs"
         }
-        getSymptomByBodyArea(self.selfListObj.list_2).then(data => {
+        getDetailBodyArea(self.selfListObj.list_2).then(data => {
             let result = data
-            that.symptoms = result.result
+            that.bodyAreas = result.result
             console.log("选中了1" + self.selfListObj.list_2);
-            that.drawer = true;
+            that.bodyAreaDrawer = true;
         });
 
 	});
@@ -1504,7 +1524,18 @@ export default {
           .catch(_ => {});
     },
       drawback() {
-          this.drawer = false
+          this.bodyAreaDrawer = true,
+              this.symptomDrawer = false;
+      },
+      getSymptomsByBodyArea(bodyArea) {
+          getBodySymptoms(bodyArea).then(data => {
+              let result = data;
+              this.symptoms = result.result;
+              this.symptomTitle = `${bodyArea}有何不适`;
+              console.log('>>>>>>>>>this.symptoms', this.symptoms)
+              this.symptomDrawer = true;
+              this.bodyAreaDrawer = false;
+          });
       }
   }
 }
@@ -1516,6 +1547,11 @@ export default {
     .button-container {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    ::v-deep .el-drawer__body {
+        overflow: auto;
+        overflow-x: hidden;
     }
 
     .sym-button {

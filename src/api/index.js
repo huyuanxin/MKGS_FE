@@ -26,10 +26,18 @@ export const serviceFlowSave = data => {
     })
 };
 
-//获取指定部位的症状
-export const getSymptomByBodyArea = data => {
+//通过大概的身体部位获得详细的身体部位
+export const getDetailBodyArea = data => {
     return request({
         url: `/3D/getDetailBody/${data}`,
+        method: 'get'
+    })
+};
+
+//通过详细的身体部位获得对应部位的症状
+export const getBodySymptoms = data => {
+    return request({
+        url: `/3D/getBodySymptom/${data}`,
         method: 'get'
     })
 };
