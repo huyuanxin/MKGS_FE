@@ -236,8 +236,6 @@ export default {
     },
     //点击回复中的链接显示
     talkEvent (play) {
-     /* alert("dianjile ")*/
-     /* this.inputMsg=play.data.text;*/
 
       this.bindEnter(play.data.text)
       console.log("play"+play.assign)
