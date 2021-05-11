@@ -49,9 +49,28 @@
                   <i class="el-icon-back" style="cursor: pointer" @click="drawback"/>
                   {{ symptomTitle }}
               </div>
+              <el-button type="primary" @click="startDiagnosis">开始诊断</el-button>
           </template>
           <div class="button-container">
-              <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button">{{symptom}}</el-button>
+              <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button"
+                         @click="saveSelectedSymptom(symptom)">{{symptom}}
+              </el-button>
+          </div>
+      </el-drawer>
+
+      <el-drawer
+              :visible.sync="diagnosisDrawer"
+              :direction="direction"
+              :before-close="handleClose">
+          <template slot="title">
+              <div>
+                  {{ diagnosisTitle }}
+              </div>
+          </template>
+          <div class="button-container">
+              <el-button v-for="diagnosisSymptom in diagnosisSymptoms" :key="diagnosisSymptom" class="sym-button"
+                         @click="saveSelectedDiagnosisSymptom(diagnosisSymptom)">{{diagnosisSymptom}}
+              </el-button>
           </div>
       </el-drawer>
 
@@ -63,7 +82,7 @@
 import 'utils/3deye.js' //people model
 import 'utils/jquery.jfMagnify.min.js' //轮播插件S
 // import 'utils/self.js'
-import {getDetailBodyArea, getBodySymptoms} from 'api/index.js'
+import {getDetailBodyArea, getBodySymptoms, getUUid, beginDiagnosis} from 'api/index.js'
 
 export default {
   name: 'SmartLeadingExamining',
@@ -71,16 +90,27 @@ export default {
     return {
         bodyAreaDrawer: false,
         symptomDrawer: false,
+        diagnosisDrawer: false,
         direction: 'rtl',
         moveFlag: 0, // 是否移动的flag
         bodyAreaTitle: undefined,
         symptomTitle: undefined,
+        diagnosisTitle: undefined,
         bodyAreas: [],
-        symptoms: []
+        symptoms: [],
+        diagnosisSymptoms: [],
+        uuid: '',
+        currentSelectedSymptom: '',
+        selectedSymptoms: []
     }
   },
   mounted() {
-      this.init()
+      this.init();
+      getUUid().then(data => {
+          let result = data;
+          this.uuid = result.result;
+          console.log('>>>>>>>>>this.uuid', this.uuid)
+      });
   },
   methods: {
     init() {
@@ -1531,11 +1561,46 @@ export default {
           getBodySymptoms(bodyArea).then(data => {
               let result = data;
               this.symptoms = result.result;
-              this.symptomTitle = `${bodyArea}有何不适`;
+              this.symptomTitle = `${bodyArea}有何不适(单选)`;
               console.log('>>>>>>>>>this.symptoms', this.symptoms)
               this.symptomDrawer = true;
               this.bodyAreaDrawer = false;
           });
+      },
+      saveSelectedSymptom(symptom) {
+          this.selectedSymptoms.push(symptom);
+          this.currentSelectedSymptom = symptom;
+          console.log('>>>>>>>>>>>this.selectedSymptoms', this.selectedSymptoms)
+          console.log('>>>>>>>>>>>this.currentSelectedSymptom', this.currentSelectedSymptom)
+      },
+      startDiagnosis() {
+          let data = {
+              args: 'Symptom',
+              uuid: this.uuid,
+              values: this.currentSelectedSymptom,
+          }
+          console.log('>>>>>>>>>data', data)
+          beginDiagnosis(data).then(res => {
+              let result = res;
+              console.log('>>>>>>>>>>>>诊断接口返回的数据', result)
+              if (result.code === 202) {
+                  this.diagnosisSymptoms = result.result;
+                  this.diagnosisTitle = '请选择伴随症状(单选)';
+              } else {
+                  this.diagnosisSymptoms = result.result;
+                  this.diagnosisTitle = '诊断结束,本次诊断结果如下';
+              }
+              this.diagnosisDrawer = true;
+              this.symptomDrawer = false;
+          });
+      },
+      saveSelectedDiagnosisSymptom(diagnosisSymptom) {
+          if (this.diagnosisTitle != '诊断结束,本次诊断结果如下') {
+              this.selectedSymptoms.push(diagnosisSymptom);
+              this.currentSelectedSymptom = diagnosisSymptom
+              console.log('>>>>>>>>>>>this.selectedSymptoms', this.selectedSymptoms)
+              this.startDiagnosis();
+          }
       }
   }
 }

@@ -26,6 +26,7 @@ export const serviceFlowSave = data => {
     })
 };
 
+//--------智能导诊 身体接口------------
 //通过大概的身体部位获得详细的身体部位
 export const getDetailBodyArea = data => {
     return request({
@@ -39,6 +40,23 @@ export const getBodySymptoms = data => {
     return request({
         url: `/3D/getBodySymptom/${data}`,
         method: 'get'
+    })
+};
+
+//获取uuid
+export const getUUid = () => {
+    return request({
+        url: '/3D/getUniversallyUniqueIdentifier',
+        method: 'get'
+    })
+};
+
+//--------智能导诊 诊断接口------------
+export const beginDiagnosis = (data) => {
+    return request({
+        url: '/3D/diagnosis',
+        method: 'post',
+        data: data
     })
 };
 
