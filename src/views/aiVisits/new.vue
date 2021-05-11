@@ -241,8 +241,10 @@ export default {
     },
     bindEnter (str) {
       const msg = str;
-      console.log(msg, str);
-      if (!msg) return;
+      if((msg.trim())=='') {
+        alert("请输入内容！")
+        return
+      };
       const msgObj = {
         "date": moment(new Date()).format('YYYY-MM-DD HH:mm:ss a'),
         "text": { "text": msg },
