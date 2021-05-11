@@ -13,9 +13,12 @@
               <i class="required-icon" v-if="value.required" >*</i>
             </span>
               <span class="input-relative">
-                <select class="select" v-model="currentNodeData.dataSetting.processSetting[key]">
-                  <option v-for="(item, index) in value.children" :key="index">{{ item }}</option>
-                </select>
+<!--                <select class="select" v-model="currentNodeData.dataSetting.processSetting[key]">-->
+<!--                  <option v-for="(item, index) in value.children" :key="index">{{ item }}</option>-->
+<!--                </select>-->
+                <el-select class="select" v-model="currentNodeData.dataSetting.processSetting[key]"  placeholder="请选择">
+                  <el-option v-for="(item, index) in value.children" :key="index" :label="item" :value="item"/>
+                </el-select>
               </span>
           </template>
           <template v-else>
