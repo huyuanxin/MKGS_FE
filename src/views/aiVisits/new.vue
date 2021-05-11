@@ -190,12 +190,14 @@ export default {
         name: '健康机器人',
         dept: '最简单、最便捷',
         callback: this.bindCover,
+        //加载更多 todo
         historyConfig:{
           show: true,
-          tip: '加载更多',
+         /* tip: '加载更多',*/
+          tip:'',
           callback: this.bindLoadHistory,
         },
-        //输入框提示
+        //输入框提示 todo
         quickList: [
           {text: '这里是jwchat，您想了解什么问题。', id:3},
           {text: 'jwchat是最好的聊天组件', id:4},
@@ -236,15 +238,15 @@ export default {
     talkEvent (play) {
      /* alert("dianjile ")*/
      /* this.inputMsg=play.data.text;*/
+
       this.bindEnter(play.data.text)
+      console.log("play"+play.assign)
+     /* play.onclick=false*/
       console.log(play.data.text)
     },
     bindEnter (str) {
-      const msg = str;
-      if((msg.trim())=='') {
-        alert("请输入内容！")
-        return
-      };
+      const msg = str
+      if((msg.trim())=='') return
       const msgObj = {
         "date": moment(new Date()).format('YYYY-MM-DD HH:mm:ss a'),
         "text": { "text": msg },
