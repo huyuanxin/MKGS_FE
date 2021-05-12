@@ -238,7 +238,6 @@ import { getEntityType } from '../api/index';
   new Promise(async (resolve) => {
     // 请求数据
     let className_data = await getEntityType();
-    console.log("getEntityType",className_data)
     // let className_data = ['disease', 'symptom', 'component']
     resolve(className_data.result)
   }).then((className_data) => {

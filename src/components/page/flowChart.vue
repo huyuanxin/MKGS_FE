@@ -400,11 +400,8 @@ export default {
       this.currentConn.setLabel({label: val})
     },
     async save() {
-      console.log('save函数执行了')
       let msg
       const json = model.getData()
-      console.log('model.getData()', model.getData())
-      console.log()
       // 节点id-target端点id映射
       const nodeTargetMap = {}
       // target端点id-节点id映射
@@ -459,9 +456,6 @@ export default {
           })
         }
       }
-
-
-      console.log('json >>>>>>>> ', json)
       // 填充头节点id 最少一个，可能多个，用数组表示
       json.head = json.nodes.filter(x => !x.data.dataSetting.processSetting.prevProcess.length && !x.data.dataSetting.processSetting.outerProcess).map(x => x.id)
 
@@ -473,7 +467,6 @@ export default {
         if (processSetting) {
           const settingType = 'processSetting'
           const data = dataSetting[x.data.type][settingType]
-          console.log(data)
           for (let y in processSetting) {
             if (processSetting.hasOwnProperty(y) && !processSetting[y] && data[y] && data[y].required) {
               this.nodeDataErrors.push({nodeId: x.id, settingType, settingField: y, errorMsg: `必填`})
@@ -508,8 +501,6 @@ export default {
       }
 
       try {
-        console.log("FlowChartJson", json)
-
         function filter(obj) {
           let filter_json = {}
           let map = []
@@ -555,9 +546,7 @@ export default {
 
         // 接口
         let filter_json = filter(json)
-
         await serviceFlowSave(filter_json)//把最终的json传给后台
-        console.log("EntityJson", filter_json)
         this.$message.success('保存成功')
       } catch (error) {
         this.$message.error(error.message)

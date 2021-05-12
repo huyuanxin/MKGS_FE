@@ -263,7 +263,6 @@ function generateNode(left, top, id, {icon, value, nodeState, elId, menuItems, d
     });
 
     let temNode = Node
-    console.log('temNode', temNode)
     const props = {
         iconCLassName: icon,
         contentText: dataSetting && dataSetting.processSetting.processName ? dataSetting.processSetting.processName : defaultNameMap[elId],
@@ -272,7 +271,6 @@ function generateNode(left, top, id, {icon, value, nodeState, elId, menuItems, d
     }
     if (menuTypes.includes(elId)) {
         temNode = menuNode
-        console.log('temNode', temNode)
         props.nodeMenuItems = menuItems
     } else {
         temNode = Node

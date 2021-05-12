@@ -8,11 +8,6 @@ import editor from 'flowChart/editor';
 import model from 'flowChart/model';
 import command from 'flowChart/command';
 
-console.log('editorCss',editorCss)
-console.log('>>>>>>>>>>editor',editor)
-console.log('>>>>>>>>>>editor.addNodeByDrag',editor.addNodeByDrag)
-
-
 /**
      * @description 设置插件容器
      * @param {string} id 容器id
@@ -39,7 +34,7 @@ console.log('>>>>>>>>>>editor.addNodeByDrag',editor.addNodeByDrag)
     function addEndpoint(elId, nodeId) {
       return command.exec(command.AddEndpointCommand, elId, nodeId);
     };
-    
+
     /**
      * @description 移除下拉项的某个端点
      */
