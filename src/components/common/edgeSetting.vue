@@ -50,7 +50,7 @@
             this.$emit('edgeLabelChange', val)
         },
         async getRelationsTypes(){
-          const res = await getEntityType();
+          const res = await getRelationsType();
 
           this.relationsType = res.result;
         },

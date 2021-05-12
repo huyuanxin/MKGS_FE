@@ -12,7 +12,7 @@ export const getEntityType = () => {
 //获取关系类别
 export const getRelationsType = () => {
     return request({
-        url: `/admin/getRelationsType`,
+        url: `/admin/getRelationType`,
         method: 'get'
     })
 };
