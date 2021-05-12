@@ -128,6 +128,8 @@ function getListArr(size) {
   }
   return result
 }
+
+import { getAnswer } from 'api/index.js';
 export default {
   name:"new",
   components: { },
@@ -242,7 +244,7 @@ export default {
      /* play.onclick=false*/
       console.log(play.data.text)
     },
-    bindEnter (str) {
+    async bindEnter (str) {
       const msg = str
       if((msg.trim())=='') return
       const msgObj = {
@@ -253,6 +255,20 @@ export default {
         "img": "public/img/admin.cf376cee.png"
       }
       this.list.push(msgObj)
+      let answers = await this.getAnswers(msgObj.text.text);
+
+      const answerObj = {
+        "date": moment(new Date()).format('YYYY-MM-DD HH:mm:ss a'),
+        "text": { "text": answers },
+        "mine": false,
+        "name": "JwChat",
+        "img": "imgs/chat/cover.png"
+      }
+      this.list.push(answerObj)
+    },
+    async getAnswers (val){
+      const res = await getAnswer(val);
+      return res.result;
     },
     /**
      * @description:

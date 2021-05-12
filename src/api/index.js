@@ -1,5 +1,13 @@
 import request from 'utils/request';
 //所有的向api的请求在这里写
+//智能问答接口
+export const getAnswer = data => {
+    return request({
+        url: `/QA/question`,
+        method: 'post',
+        data: data
+    })
+};
 
 //获取实体类别
 export const getEntityType = () => {
