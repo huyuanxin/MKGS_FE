@@ -52,7 +52,8 @@
               <el-button type="primary" @click="startDiagnosis">开始诊断</el-button>
           </template>
           <div class="button-container">
-              <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button"
+              <el-button v-for="symptom in symptoms" :key="symptom" :type="symptomSelect === symptom ? 'primary' : ''"
+                         class="sym-button"
                          @click="saveSelectedSymptom(symptom)">{{symptom}}
               </el-button>
           </div>
@@ -114,7 +115,8 @@ export default {
         uuid: '',
         currentSelectedSymptom: '',
         selectedSymptoms: [],
-        centerDialogVisible: false
+        centerDialogVisible: false,
+        symptomSelect: ''
     }
   },
   mounted() {
@@ -1576,7 +1578,7 @@ export default {
           });
       },
       saveSelectedSymptom(symptom) {
-          this.symptomSelect = symptom
+          this.symptomSelect = symptom;
           this.selectedSymptoms.push(symptom);
           this.currentSelectedSymptom = symptom;
           console.log('>>>>>>>>>>>this.selectedSymptoms', this.selectedSymptoms)
