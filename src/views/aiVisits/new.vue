@@ -241,7 +241,6 @@ export default {
 
       this.bindEnter(play.data.text)
       console.log("play"+play.assign)
-     /* play.onclick=false*/
       console.log(play.data.text)
     },
     async bindEnter (str) {
@@ -255,13 +254,13 @@ export default {
         "img": "public/img/admin.cf376cee.png"
       }
       this.list.push(msgObj)
-      let answers = await this.getAnswers(msgObj.text.text);
-
+      let answers = await this.getAnswers(msgObj.text.text) || "请求数量过多，过段时间再来吧";//请求过多时answer为undefined
+      // console.log("answers >>>>>>>>>>>> ", answers)
       const answerObj = {
         "date": moment(new Date()).format('YYYY-MM-DD HH:mm:ss a'),
         "text": { "text": answers },
         "mine": false,
-        "name": "JwChat",
+        "name": "健康机器人",
         "img": "imgs/chat/cover.png"
       }
       this.list.push(answerObj)
