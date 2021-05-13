@@ -74,6 +74,18 @@
           </div>
       </el-drawer>
 
+      <el-dialog
+              title="提示"
+              :visible.sync="centerDialogVisible"
+              width="30%"
+              center>
+          <span>请先选择一项不适症状</span>
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+          </span>
+      </el-dialog>
+
   </div>
 </template>
 
@@ -101,7 +113,8 @@ export default {
         diagnosisSymptoms: [],
         uuid: '',
         currentSelectedSymptom: '',
-        selectedSymptoms: []
+        selectedSymptoms: [],
+        centerDialogVisible: false
     }
   },
   mounted() {
@@ -1591,12 +1604,16 @@ export default {
           })
       },
       startDiagnosis() {
-          getUUid().then(res => {
-              let result = res;
-              this.uuid = result.result;
-              console.log('>>>>>>>>>this.uuid', this.uuid)
-              this.getDiagnosisSymptoms();
-          })
+          if (this.currentSelectedSymptom === '') {
+              this.centerDialogVisible = true;
+          } else {
+              getUUid().then(res => {
+                  let result = res;
+                  this.uuid = result.result;
+                  console.log('>>>>>>>>>this.uuid', this.uuid)
+                  this.getDiagnosisSymptoms();
+              })
+          }
       },
       saveSelectedDiagnosisSymptom(diagnosisSymptom) {
           if (this.diagnosisTitle != '诊断结束,本次诊断结果如下') {
