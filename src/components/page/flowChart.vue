@@ -318,9 +318,16 @@ export default {
     });
     FlowChart.on('selectEdge', conn => {
       this.showType = 'edge';
-      this.currentConn = conn
-      this.edgesLabel = model.getEdgesLabel()
-      this.currentEdgeId = conn.getUuids().join('&&')
+      this.currentConn = conn;
+      this.edgesLabel = model.getEdgesLabel();
+      this.currentEdgeId = conn.getUuids().join('&&');
+      //
+      if(Object.values(this.edgesLabel)[0]){
+        const sourceNode = this.currentEdgeId.split("&&")[0].split("-source")[0]+"-source"
+        const targetNode = this.currentEdgeId.split("&&")[1].split("-target")[0]+"-target"
+
+        // this.check(sourceNode,targetNode)
+      }
     });
     FlowChart.on('cleanAll', () => {
       this.cleanAll()
@@ -418,8 +425,6 @@ export default {
         sourceNodeMap[x.points.sources[0]] = x.id
         x.data.menuItems && x.data.menuItems.forEach(y => {
           logicSourceNodeMap[y.pointId] = x.id
-
-
         })
       })
 
@@ -499,7 +504,6 @@ export default {
         this.$message.warning(msg)
         return
       }
-
       try {
         function filter(obj) {
           let filter_json = {}
@@ -548,6 +552,64 @@ export default {
         let filter_json = filter(json)
         await serviceFlowSave(filter_json)//把最终的json传给后台
         this.$message.success('保存成功')
+      } catch (error) {
+        this.$message.error(error.message)
+      }
+    },
+    async check(sourceNode,targetNode){
+      const json = model.getData()
+      // console.log("entityJson",json)
+      try {
+        function filter(obj) {
+          let filter_json = {}
+          let map = []
+          for (const key in obj.edgesLabel) {
+            if (obj.edgesLabel.hasOwnProperty(key)) {
+              const value = obj.edgesLabel[key]
+              const sourceNode = key.split("&&")[0].split("-source")[0]
+              const targetNode = key.split("&&")[1].split("-target")[0]
+              // const newKey = model.getNodeData(sourceNode).dataSetting.processSetting.processName + "&&" + model.getNodeData(targetNode).dataSetting.processSetting.processName
+            }
+          }
+          filter_json.entities = createEntity(obj)
+          return filter_json
+        }
+
+        function createEntity(obj) {
+          let filter_entities = []
+          for (let i = 0; i < obj.nodes.length; i++) {
+            let entity = {}
+            entity.id = obj.nodes[i].id
+            entity.entityType = obj.nodes[i].data.dataSetting.processSetting.className
+            filter_entities.push(entity)
+          }
+          return filter_entities
+        }
+
+        // 接口
+        let filter_json = filter(json)
+
+        const nodeList = []
+        console.log("111111111111111111", sourceNode, targetNode)
+        for (const index in filter_json.entities) {
+          const entity = filter_json.entities[index];
+          if (entity.id == sourceNode.split("-source")[0]) {
+
+           entity.type= "source"
+            nodeList.push(entity)
+          }
+
+          if (entity.id == targetNode.split("-target")[0]) {
+            entity.type= "target"
+            nodeList.push(entity)
+          }
+
+        }
+        // console.log("nodeList",nodeList) //向后台传关系所连接的实体类型
+
+
+        // await serviceFlowSave(filter_json)//把nodeList传给后台的检查api
+        this.$message.success('关系发送成功')
       } catch (error) {
         this.$message.error(error.message)
       }
