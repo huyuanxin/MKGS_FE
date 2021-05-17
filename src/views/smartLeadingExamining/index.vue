@@ -1559,7 +1559,10 @@ export default {
     handleClose(done) {
       this.$confirm('确认关闭？')
           .then(_ => {
+              this.currentSelectedSymptom = '';
+              this.symptomSelect = '';
             done();
+              console.log('this', this)
           })
           .catch(_ => {});
     },
@@ -1581,6 +1584,7 @@ export default {
           this.symptomSelect = symptom;
           this.selectedSymptoms.push(symptom);
           this.currentSelectedSymptom = symptom;
+          console.log('>>>>>>>>>>>this.symptomSelect', this.symptomSelect)
           console.log('>>>>>>>>>>>this.selectedSymptoms', this.selectedSymptoms)
           console.log('>>>>>>>>>>>this.currentSelectedSymptom', this.currentSelectedSymptom)
       },
@@ -1600,6 +1604,7 @@ export default {
               } else {
                   this.diagnosisSymptoms = result.result;
                   this.diagnosisTitle = '诊断结束,本次诊断结果如下';
+                  this.currentSelectedSymptom = '';
               }
               this.diagnosisDrawer = true;
               this.symptomDrawer = false;
