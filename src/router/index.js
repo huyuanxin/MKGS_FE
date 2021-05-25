@@ -55,6 +55,12 @@ export default new Router({
                     meta: {title: '智能导诊'},
                 },
                 {
+                    name:'DataShow',
+                    path: '/datashow',
+                    component: () => import('views/dataShow/index.vue'),
+                    meta: {title: '数据展示'},
+                },
+                {
                     path: '/404',
                     component: () => import('components/page/404.vue'),
                     meta: {title: '404'}

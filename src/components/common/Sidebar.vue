@@ -87,6 +87,11 @@ export default {
                     index: 'smartleadingexamining',
                     title: '智能导诊'
                 },
+                {
+                  icon: 'el-icon-pie-chart',
+                  index: 'datashow',
+                  title: '数据展示'
+                },
             ]
         };
     },

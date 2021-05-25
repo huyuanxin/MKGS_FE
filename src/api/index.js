@@ -8,7 +8,7 @@ export const getAnswer = data => {
         data: data
     })
 };
-
+//--------数据维护 数据展示接口------------
 //获取实体类别
 export const getEntityType = () => {
     return request({
@@ -24,6 +24,22 @@ export const getRelationsType = () => {
         method: 'get'
     })
 };
+
+//获取entityType类型全部数据
+export const getAllEntitiesByType = data => {
+    return request({
+        url: `/admin/getAllEntitiesByType/${data}`,
+        method: 'get'
+    })
+};
+
+export const getAllRelationByName = data => {
+    return request({
+        url: `/admin/getAllRelationByName/${data}`,
+        method: 'get'
+    })
+};
+
 
 //保存流程图json
 export const serviceFlowSave = data => {
@@ -94,5 +110,7 @@ export const managerData = query=>{
         params:query
     });
 };
+
+
 
 
