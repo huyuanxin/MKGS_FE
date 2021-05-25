@@ -52,7 +52,8 @@
               <el-button type="primary" @click="startDiagnosis">开始诊断</el-button>
           </template>
           <div class="button-container">
-              <el-button v-for="symptom in symptoms" :key="symptom" class="sym-button"
+              <el-button v-for="symptom in symptoms" :key="symptom" :type="symptomSelect === symptom ? 'primary' : ''"
+                         class="sym-button"
                          @click="saveSelectedSymptom(symptom)">{{symptom}}
               </el-button>
           </div>
@@ -74,6 +75,18 @@
           </div>
       </el-drawer>
 
+      <el-dialog
+              title="提示"
+              :visible.sync="centerDialogVisible"
+              width="30%"
+              center>
+          <span>请先选择一项不适症状</span>
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+          </span>
+      </el-dialog>
+
   </div>
 </template>
 
@@ -82,7 +95,7 @@
 import 'utils/3deye.js' //people model
 import 'utils/jquery.jfMagnify.min.js' //轮播插件S
 // import 'utils/self.js'
-import {getDetailBodyArea, getBodySymptoms, getUUid, beginDiagnosis} from 'api/index.js'
+import {getDetailBodyArea, getBodySymptoms, getUUid, getDiagnosisData} from 'api/index.js'
 
 export default {
   name: 'SmartLeadingExamining',
@@ -101,16 +114,13 @@ export default {
         diagnosisSymptoms: [],
         uuid: '',
         currentSelectedSymptom: '',
-        selectedSymptoms: []
+        selectedSymptoms: [],
+        centerDialogVisible: false,
+        symptomSelect: ''
     }
   },
   mounted() {
       this.init();
-      getUUid().then(data => {
-          let result = data;
-          this.uuid = result.result;
-          console.log('>>>>>>>>>this.uuid', this.uuid)
-      });
   },
   methods: {
     init() {
@@ -1549,7 +1559,10 @@ export default {
     handleClose(done) {
       this.$confirm('确认关闭？')
           .then(_ => {
+              this.currentSelectedSymptom = '';
+              this.symptomSelect = '';
             done();
+              console.log('this', this)
           })
           .catch(_ => {});
     },
@@ -1568,19 +1581,21 @@ export default {
           });
       },
       saveSelectedSymptom(symptom) {
+          this.symptomSelect = symptom;
           this.selectedSymptoms.push(symptom);
           this.currentSelectedSymptom = symptom;
+          console.log('>>>>>>>>>>>this.symptomSelect', this.symptomSelect)
           console.log('>>>>>>>>>>>this.selectedSymptoms', this.selectedSymptoms)
           console.log('>>>>>>>>>>>this.currentSelectedSymptom', this.currentSelectedSymptom)
       },
-      startDiagnosis() {
+      getDiagnosisSymptoms() {
           let data = {
               args: 'Symptom',
               uuid: this.uuid,
-              values: this.currentSelectedSymptom,
+              values: this.currentSelectedSymptom
           }
           console.log('>>>>>>>>>data', data)
-          beginDiagnosis(data).then(res => {
+          getDiagnosisData(data).then(res => {
               let result = res;
               console.log('>>>>>>>>>>>>诊断接口返回的数据', result)
               if (result.code === 202) {
@@ -1589,17 +1604,30 @@ export default {
               } else {
                   this.diagnosisSymptoms = result.result;
                   this.diagnosisTitle = '诊断结束,本次诊断结果如下';
+                  this.currentSelectedSymptom = '';
               }
               this.diagnosisDrawer = true;
               this.symptomDrawer = false;
-          });
+          })
+      },
+      startDiagnosis() {
+          if (this.currentSelectedSymptom === '') {
+              this.centerDialogVisible = true;
+          } else {
+              getUUid().then(res => {
+                  let result = res;
+                  this.uuid = result.result;
+                  console.log('>>>>>>>>>this.uuid', this.uuid)
+                  this.getDiagnosisSymptoms();
+              })
+          }
       },
       saveSelectedDiagnosisSymptom(diagnosisSymptom) {
           if (this.diagnosisTitle != '诊断结束,本次诊断结果如下') {
               this.selectedSymptoms.push(diagnosisSymptom);
               this.currentSelectedSymptom = diagnosisSymptom
               console.log('>>>>>>>>>>>this.selectedSymptoms', this.selectedSymptoms)
-              this.startDiagnosis();
+              this.getDiagnosisSymptoms();
           }
       }
   }

@@ -76,7 +76,7 @@ export const getUUid = () => {
 };
 
 //--------智能导诊 诊断接口------------
-export const beginDiagnosis = (data) => {
+export const getDiagnosisData = (data) => {
     return request({
         url: '/3D/diagnosis',
         method: 'post',
