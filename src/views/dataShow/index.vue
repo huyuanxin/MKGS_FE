@@ -80,9 +80,17 @@ export default {
     // this.getList();
   },
   methods: {
-    handleNodeClick(data) {
-      data.label = 'testing'
-      // console.log(data);
+    async handleNodeClick(data) {
+      // data.label = 'testing'
+      if (data.level === 1) {
+        console.log(data);
+        try {
+          const res = await this.getAllRelation(data.name)
+          this.relationList = res
+        } catch (e){
+          console.log(e)
+        }
+      }
     },
     async getList(){
       const dataList = []
@@ -138,12 +146,10 @@ export default {
 
     },
     async loadNode(node, resolve) {        // 加载 树数据
-      let that = this;
-
       if (node.level === 0) {
         try {
-          const res = await that.loadtreeData();
-          return resolve(res)
+          const res = await this.loadtreeData();
+          return resolve(res.map(x => ({ ...x, level: 0 })))
         } catch (e) {
           console.log(e)
           return resolve([])
@@ -154,7 +160,7 @@ export default {
       if (node.level === 1) {
         try {
           const res = await this.getChildByList(node.data.name);
-          return resolve(res)
+          return resolve(res.map(x => ({ ...x, level: 1 })))
         } catch (e) {
           console.log(e)
           return resolve([])
@@ -164,17 +170,7 @@ export default {
       }
 
       if (node.level >= 2){
-        try {
-          const res = await this.getAllRelation(node.data.name)
-          that.relationList = res
-          // console.log(that.relationList)
-          // console.log("level2dataname",node.data.name)
-          // console.log("level2res",res)
-          return resolve([])
-        } catch (e){
-          console.log(e)
-          return resolve([])
-        }
+        return resolve([])
       }
     },
     loadtreeData() {      // 获取loadtreeData 就是父节点数据，getChildByList就是异步获取子节点数据
